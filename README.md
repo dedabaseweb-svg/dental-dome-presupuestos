@@ -1,12 +1,11 @@
-# Dental Dome · Calculadora de presupuestos 2026
+# Dental Dome · Asistente de presupuestos · Fase 2
 
-Fase 1: identidad visual Dental Dome.
+Incluye:
+- Flujo Corona / Puente / Rehabilitación completa / Adhesiva / Provisionales / Mock-up / Férulas / Guías / Auxiliares.
+- Presupuesto dinámico.
+- Protocolos automáticos.
+- Avisos de implantes, scan bodies, aditamentos y agenda.
+- Impresión/PDF desde navegador.
+- Copia de resumen para WhatsApp.
 
-## Archivos
-- `index.html`
-- `style.css`
-- `script.js`
-- `assets/logo-dental-dome.png`
-
-## GitHub Pages
-Settings → Pages → Deploy from branch → main → /(root)
+Subir a GitHub Pages sustituyendo los archivos actuales.
