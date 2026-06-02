@@ -140,3 +140,17 @@ td.num{text-align:right;white-space:nowrap}
   .quote-panel{position:static;box-shadow:none;border:0}
   .panel{box-shadow:none}
 }
+
+.quote-actions{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+.line-actions{display:flex;gap:6px;justify-content:flex-end;align-items:center}
+.edit{background:#eef0e7;color:#4f5b4b;border:1px solid #ccd1c3;border-radius:9px;padding:4px 8px;font-weight:700}
+.editing-row{background:#fff8e6}
+.line-name-input,.line-qty-input,.line-price-input{
+  width:100%;
+  border:1px solid #cfcbbd;
+  background:#fffef8;
+  border-radius:8px;
+  padding:6px 8px;
+  font:inherit;
+}
+.line-qty-input,.line-price-input{max-width:90px;text-align:right}

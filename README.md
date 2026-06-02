@@ -9,3 +9,9 @@ Incluye:
 - Copia de resumen para WhatsApp.
 
 Subir a GitHub Pages sustituyendo los archivos actuales.
+
+
+## Fase 2.1
+- Edición de líneas de presupuesto.
+- Botón Recalcular.
+- Logo en raíz para GitHub Pages.

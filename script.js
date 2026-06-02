@@ -140,6 +140,7 @@ const PROTOCOLS = {
 let currentFlow = "corona";
 let quote = [];
 let protocolsInQuote = new Set();
+let editingLineId = null;
 
 const eur = n => Number(n || 0).toLocaleString("es-ES",{style:"currency",currency:"EUR"});
 const $ = id => document.getElementById(id);
@@ -383,22 +384,73 @@ function addCurrent(){
   }
   updateQuote();
 }
+function recalculateQuote(){
+  quote = quote.map(l=>{
+    const qty = Number(l.qty || 0);
+    const price = Number(l.price || 0);
+    return {...l, qty, price, total: qty * price};
+  });
+  protocolsInQuote = new Set(quote.map(l=>l.protocolo).filter(Boolean));
+  updateQuote();
+}
 function updateQuote(){
   $("quoteMeta").innerHTML = `<span>Clínica: ${$("clinica").value || "—"}</span><span>Doctor/a: ${$("doctor").value || "—"}</span><span>Paciente: ${$("paciente").value || "—"}</span>`;
   const tbody = $("quoteLines");
-  tbody.innerHTML = quote.map(l=>`<tr>
-    <td>${l.nombre}${l.note?`<br><small>${l.note}</small>`:""}</td>
-    <td class="num">${l.qty}</td>
-    <td class="num">${eur(l.price)}</td>
-    <td class="num">${eur(l.total)}</td>
-    <td><button class="remove" onclick="removeLine('${l.id}')">×</button></td>
-  </tr>`).join("") || `<tr><td colspan="5">Sin conceptos todavía.</td></tr>`;
+  tbody.innerHTML = quote.map(l=>{
+    if(l.id === editingLineId){
+      return `<tr class="editing-row">
+        <td>
+          <input class="line-name-input" id="editName_${l.id}" value="${String(l.nombre).replaceAll('"','&quot;')}">
+          ${l.note?`<br><small>${l.note}</small>`:""}
+        </td>
+        <td class="num"><input class="line-qty-input" id="editQty_${l.id}" type="number" min="0" step="1" value="${l.qty}"></td>
+        <td class="num"><input class="line-price-input" id="editPrice_${l.id}" type="number" min="0" step="0.01" value="${l.price}"></td>
+        <td class="num">${eur(Number(l.qty||0)*Number(l.price||0))}</td>
+        <td class="line-actions">
+          <button class="edit" onclick="saveLine('${l.id}')">Guardar</button>
+          <button class="remove" onclick="cancelEdit()">Cancelar</button>
+        </td>
+      </tr>`;
+    }
+    return `<tr>
+      <td>${l.nombre}${l.note?`<br><small>${l.note}</small>`:""}</td>
+      <td class="num">${l.qty}</td>
+      <td class="num">${eur(l.price)}</td>
+      <td class="num">${eur(l.total)}</td>
+      <td class="line-actions">
+        <button class="edit" onclick="editLine('${l.id}')">Editar</button>
+        <button class="remove" onclick="removeLine('${l.id}')">×</button>
+      </td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="5">Sin conceptos todavía.</td></tr>`;
   $("total").textContent = eur(quote.reduce((s,l)=>s+l.total,0));
   renderWarnings();
   renderProtocols();
 }
+function editLine(id){
+  editingLineId = id;
+  updateQuote();
+}
+function cancelEdit(){
+  editingLineId = null;
+  updateQuote();
+}
+function saveLine(id){
+  const line = quote.find(l=>l.id===id);
+  if(!line) return;
+  const nameInput = $("editName_"+id);
+  const qtyInput = $("editQty_"+id);
+  const priceInput = $("editPrice_"+id);
+  line.nombre = nameInput?.value || line.nombre;
+  line.qty = Number(qtyInput?.value || 0);
+  line.price = Number(priceInput?.value || 0);
+  line.total = line.qty * line.price;
+  editingLineId = null;
+  recalculateQuote();
+}
 function removeLine(id){
   quote = quote.filter(l=>l.id!==id);
+  if(editingLineId===id) editingLineId = null;
   protocolsInQuote = new Set(quote.map(l=>l.protocolo).filter(Boolean));
   updateQuote();
 }
@@ -445,7 +497,8 @@ document.querySelectorAll(".nav-item").forEach(btn=>{
 });
 ["clinica","doctor","paciente"].forEach(id=>$(id).addEventListener("input",updateQuote));
 $("addLine").addEventListener("click",addCurrent);
-$("clearQuote").addEventListener("click",()=>{quote=[];protocolsInQuote.clear();updateQuote();});
+$("clearQuote").addEventListener("click",()=>{quote=[];protocolsInQuote.clear();editingLineId=null;updateQuote();});
+$("recalculateQuote").addEventListener("click",recalculateQuote);
 $("resetForm").addEventListener("click",renderForm);
 $("printPdf").addEventListener("click",()=>window.print());
 $("copyWhatsApp").addEventListener("click",()=>{
