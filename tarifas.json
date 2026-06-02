@@ -1,0 +1,332 @@
+{
+  "coronas": [
+    {
+      "id": "zr_mono_std_tallado",
+      "nombre": "Corona monolítica Standard · Zirconio · Tallado",
+      "precio": 80,
+      "unidad": "unidad",
+      "protocolo": "corona_tallado",
+      "notas": [
+        "Color guía VITA",
+        "Sin estratificación cerámica",
+        "Modelos impresos aparte si procede"
+      ]
+    },
+    {
+      "id": "zr_mono_std_implante",
+      "nombre": "Corona monolítica Standard · Zirconio · Implante",
+      "precio": 90,
+      "unidad": "unidad",
+      "protocolo": "implante_unitario",
+      "notas": [
+        "Requiere Ti-Base y tornillo",
+        "Modelos, encía y aditamentos aparte"
+      ]
+    },
+    {
+      "id": "zr_mono_personalizada",
+      "nombre": "Corona monolítica Premium · Zirconio personalizado",
+      "precio": 100,
+      "unidad": "unidad",
+      "protocolo": "corona_tallado",
+      "notas": [
+        "Caracterización personalizada",
+        "Indicado para mayor requerimiento estético"
+      ]
+    },
+    {
+      "id": "zr_estratificada_ant_implante",
+      "nombre": "Corona estratificada · Zirconio · Anterior sobre implante",
+      "precio": 150,
+      "unidad": "unidad",
+      "protocolo": "implante_unitario"
+    },
+    {
+      "id": "zr_estratificada_post_implante",
+      "nombre": "Corona estratificada · Zirconio · Posterior sobre implante",
+      "precio": 130,
+      "unidad": "unidad",
+      "protocolo": "implante_unitario"
+    },
+    {
+      "id": "disilicato_estrat_ant",
+      "nombre": "Corona disilicato estratificada · Anterior",
+      "precio": 150,
+      "unidad": "unidad",
+      "protocolo": "adhesiva_estetica"
+    },
+    {
+      "id": "disilicato_estrat_post",
+      "nombre": "Corona disilicato estratificada · Posterior",
+      "precio": 130,
+      "unidad": "unidad",
+      "protocolo": "adhesiva_estetica"
+    },
+    {
+      "id": "metal_ceramica_tallado_ant_std",
+      "nombre": "Corona Cr-Co metal-cerámica Standard · Anterior · Tallado",
+      "precio": 120,
+      "unidad": "unidad",
+      "protocolo": "corona_tallado"
+    },
+    {
+      "id": "metal_ceramica_tallado_post_std",
+      "nombre": "Corona Cr-Co metal-cerámica Standard · Posterior · Tallado",
+      "precio": 100,
+      "unidad": "unidad",
+      "protocolo": "corona_tallado"
+    },
+    {
+      "id": "metal_ceramica_implante_ant",
+      "nombre": "Corona Cr-Co metal-cerámica · Anterior sobre implante",
+      "precio": 170,
+      "unidad": "unidad",
+      "protocolo": "implante_unitario"
+    },
+    {
+      "id": "metal_ceramica_implante_post",
+      "nombre": "Corona Cr-Co metal-cerámica · Posterior sobre implante",
+      "precio": 150,
+      "unidad": "unidad",
+      "protocolo": "implante_unitario"
+    },
+    {
+      "id": "pendiente_disilicato_mono_std",
+      "nombre": "Corona monolítica Standard · Disilicato de litio",
+      "precio": null,
+      "unidad": "unidad",
+      "protocolo": "adhesiva_estetica",
+      "notas": [
+        "Precio pendiente de confirmar en tarifa"
+      ]
+    },
+    {
+      "id": "pendiente_metal_premium_ant",
+      "nombre": "Corona Cr-Co metal-cerámica Premium · Anterior",
+      "precio": null,
+      "unidad": "unidad",
+      "protocolo": "corona_tallado",
+      "notas": [
+        "Precio pendiente de confirmar"
+      ]
+    },
+    {
+      "id": "pendiente_metal_premium_post",
+      "nombre": "Corona Cr-Co metal-cerámica Premium · Posterior",
+      "precio": null,
+      "unidad": "unidad",
+      "protocolo": "corona_tallado",
+      "notas": [
+        "Precio pendiente de confirmar"
+      ]
+    }
+  ],
+  "adhesiva": [
+    {
+      "id": "carilla_feldespatica",
+      "nombre": "Carilla cerámica feldespática",
+      "precio": 180,
+      "unidad": "unidad",
+      "protocolo": "adhesiva_estetica"
+    },
+    {
+      "id": "carilla_disilicato_maquillada",
+      "nombre": "Carilla disilicato monolítica maquillada",
+      "precio": 130,
+      "unidad": "unidad",
+      "protocolo": "adhesiva_estetica"
+    },
+    {
+      "id": "carilla_disilicato_estratificada",
+      "nombre": "Carilla disilicato estratificada",
+      "precio": 150,
+      "unidad": "unidad",
+      "protocolo": "adhesiva_estetica"
+    },
+    {
+      "id": "inlay_onlay_tabletop_disilicato",
+      "nombre": "Inlay / Onlay / Table Top · Disilicato maquillado",
+      "precio": 130,
+      "unidad": "unidad",
+      "protocolo": "adhesiva_estetica"
+    },
+    {
+      "id": "onlay_feldespatica",
+      "nombre": "Onlay / Inlay / Table Top · Cerámica feldespática",
+      "precio": null,
+      "unidad": "unidad",
+      "protocolo": "adhesiva_estetica",
+      "notas": [
+        "Precio pendiente de confirmar"
+      ]
+    }
+  ],
+  "provisionales": [
+    {
+      "id": "pmma_monocapa_tallado",
+      "nombre": "PMMA fresado monocapa · prueba estética · tallado/póntico",
+      "precio": 12,
+      "unidad": "unidad",
+      "protocolo": "provisional"
+    },
+    {
+      "id": "pmma_monocapa_implante",
+      "nombre": "PMMA fresado monocapa · prueba estética · implante/interface",
+      "precio": 17,
+      "unidad": "unidad",
+      "protocolo": "provisional"
+    },
+    {
+      "id": "pmma_multicapa_tallado",
+      "nombre": "PMMA fresado multicapa · larga duración · tallado/póntico",
+      "precio": 30,
+      "unidad": "unidad",
+      "protocolo": "provisional"
+    },
+    {
+      "id": "pmma_multicapa_implante",
+      "nombre": "PMMA fresado multicapa · larga duración · implante/interface",
+      "precio": 45,
+      "unidad": "unidad",
+      "protocolo": "provisional"
+    },
+    {
+      "id": "test_impreso_3d",
+      "nombre": "Test impreso 3D monocapa · prueba estética",
+      "precio": null,
+      "unidad": "unidad",
+      "protocolo": "provisional",
+      "notas": [
+        "Solo para prueba estética. Precio pendiente de confirmar."
+      ]
+    }
+  ],
+  "rehabilitaciones": [
+    {
+      "id": "rehab_metal_ceramica_premium",
+      "nombre": "Rehabilitación completa Premium · Metal-cerámica",
+      "precio": 3000,
+      "unidad": "arcada",
+      "protocolo": "rehabilitacion_completa",
+      "incluye": [
+        "Modelos",
+        "FRI",
+        "Prueba pasividad escayola",
+        "Prueba estética"
+      ]
+    },
+    {
+      "id": "rehab_zirconio_cutback_premium",
+      "nombre": "Rehabilitación completa Premium · Zirconio cut-back / recubierta",
+      "precio": 2500,
+      "unidad": "arcada",
+      "protocolo": "rehabilitacion_completa",
+      "incluye": [
+        "Modelos",
+        "FRI",
+        "Prueba pasividad escayola",
+        "Prueba estética"
+      ]
+    },
+    {
+      "id": "rehab_zirconio_monolitica_maquillada",
+      "nombre": "Rehabilitación completa · Zirconio monolítica maquillada",
+      "precio": 2000,
+      "unidad": "arcada",
+      "protocolo": "rehabilitacion_completa"
+    }
+  ],
+  "auxiliares": [
+    {
+      "id": "fri_fresada",
+      "nombre": "Férula FRI fresada",
+      "precio": 10,
+      "unidad": "implante",
+      "protocolo": "implantes_multiple"
+    },
+    {
+      "id": "encia_impresa",
+      "nombre": "Encía impresa",
+      "precio": 5,
+      "unidad": "tramo",
+      "protocolo": "implantes_multiple"
+    },
+    {
+      "id": "modelo_impreso",
+      "nombre": "Modelo impreso completo/hemiarcada",
+      "precio": 20,
+      "unidad": "modelo",
+      "protocolo": "modelo"
+    },
+    {
+      "id": "prueba_pasividad_aluminio",
+      "nombre": "Prueba pasividad aluminio",
+      "precio": 200,
+      "unidad": "caso",
+      "protocolo": "implantes_multiple"
+    },
+    {
+      "id": "prueba_pasividad_escayola",
+      "nombre": "Prueba pasividad escayola",
+      "precio": 50,
+      "unidad": "caso",
+      "protocolo": "implantes_multiple"
+    },
+    {
+      "id": "pilar_titanio_personalizado",
+      "nombre": "Pilar titanio personalizado",
+      "precio": 95,
+      "unidad": "unidad",
+      "protocolo": "implante_unitario"
+    },
+    {
+      "id": "pilar_zirconio_personalizado",
+      "nombre": "Pilar zirconio personalizado",
+      "precio": 95,
+      "unidad": "unidad",
+      "protocolo": "implante_unitario"
+    },
+    {
+      "id": "ferula_descarga_fresada",
+      "nombre": "Férula fresada transparente",
+      "precio": 80,
+      "unidad": "unidad",
+      "protocolo": "ferula"
+    },
+    {
+      "id": "guia_galucci",
+      "nombre": "Guía quirúrgica tipo Galucci · PMMA",
+      "precio": 45,
+      "unidad": "implante",
+      "protocolo": "guia_quirurgica"
+    },
+    {
+      "id": "waxup_digital",
+      "nombre": "Wax-up digital",
+      "precio": 10,
+      "unidad": "pieza",
+      "protocolo": "mockup"
+    },
+    {
+      "id": "diseno_modelo_3d",
+      "nombre": "Diseño modelo 3D",
+      "precio": 5,
+      "unidad": "caso",
+      "protocolo": "mockup"
+    },
+    {
+      "id": "llave_mockup",
+      "nombre": "Llave mock-up",
+      "precio": 25,
+      "unidad": "llave",
+      "protocolo": "mockup"
+    },
+    {
+      "id": "llave_silicona_transparente",
+      "nombre": "Llave silicona transparente",
+      "precio": 25,
+      "unidad": "llave",
+      "protocolo": "mockup"
+    }
+  ]
+}
