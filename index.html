@@ -1,177 +1,149 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dental Dome · Presupuestos 2026</title>
-<style>
-:root{
-  --cream:#f2f2e9; --sage:#a3a99b; --olive:#7a8372; --grey:#e5e5e5; --ink:#2b2b2b; --white:#fff;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--cream);color:var(--ink)}
-header{padding:34px 20px 24px;text-align:center;background:linear-gradient(180deg,#f2f2e9,#e9ebe2)}
-.logo{width:190px;max-width:55vw;mix-blend-mode:multiply}
-h1{font-weight:300;letter-spacing:.16em;text-transform:lowercase;margin:14px 0 4px;font-size:34px}
-.subtitle{letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:#596052}
-main{max-width:1120px;margin:0 auto;padding:24px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.card{background:rgba(255,255,255,.75);border:1px solid rgba(43,43,43,.08);border-radius:24px;padding:22px;box-shadow:0 18px 50px rgba(43,43,43,.07)}
-label{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 7px;color:#596052}
-input,select,textarea{width:100%;border:1px solid #d6d8cf;background:#fff;border-radius:14px;padding:12px 13px;font-size:15px;color:var(--ink)}
-textarea{min-height:90px;resize:vertical}
-button{border:0;border-radius:999px;padding:13px 18px;background:var(--olive);color:#fff;font-weight:650;cursor:pointer}
-button.secondary{background:#2b2b2b}
-button.ghost{background:transparent;color:var(--ink);border:1px solid #c9ccbf}
-.row{display:grid;grid-template-columns:1.4fr .6fr .6fr auto;gap:10px;align-items:end;margin:10px 0}
-.small{font-size:12px;color:#666}
-.total{font-size:36px;font-weight:250;letter-spacing:-.02em;margin-top:8px}
-.table{width:100%;border-collapse:collapse;margin-top:12px}
-.table th,.table td{border-bottom:1px solid #e1e3da;padding:10px;text-align:left;font-size:14px}
-.table th{text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:#596052}
-.notice{background:#e5e5e5;border-left:5px solid var(--olive);padding:12px 14px;border-radius:14px;margin:10px 0;font-size:14px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-@media(max-width:850px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr 1fr}.row button{grid-column:1/-1}h1{font-size:28px}}
-@media print{header,.no-print,.card.form{display:none}body{background:#fff}main{padding:0}.card{box-shadow:none;border:0}.grid{display:block}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dental Dome · Calculadora de presupuestos</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
-<img class="logo" src="assets/logo-light.png" alt="Dental Dome">
-<h1>dental dome</h1>
-<div class="subtitle">Calculadora de presupuestos · 2026</div>
-</header>
-<main>
-<div class="grid">
-<section class="card form no-print">
-<h2>Nuevo presupuesto</h2>
-<label>Clínica</label><input id="clinica" placeholder="Nombre de la clínica">
-<label>Doctor/a</label><input id="doctor" placeholder="Doctor/a responsable">
-<label>Paciente / referencia interna</label><input id="paciente" placeholder="Opcional">
-<label>Flujo de trabajo</label>
-<select id="flujo"><option>Digital</option><option>Analógico</option></select>
-<label>¿Alto requerimiento estético?</label>
-<select id="estetica"><option>No</option><option>Sí</option></select>
-<label>¿Sobre implantes?</label>
-<select id="implantes"><option>No</option><option>Sí</option></select>
-<label>Marca y referencia scan body / implante</label><input id="scanbody" placeholder="Obligatorio en digital sobre implantes">
-<div class="notice">En digital sobre implantes: indicar marca y referencia de scan body. Antirrotatorio para unidad; rotatorio para puente.</div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo-dental-dome.png" alt="Dental Dome" />
+        <p>Clinical & Laboratory Workflow</p>
+      </div>
 
-<h3>Añadir concepto</h3>
-<div class="row">
-<div><label>Concepto</label><select id="concepto"></select></div>
-<div><label>Unid.</label><input id="cantidad" type="number" min="1" value="1"></div>
-<div><label>Dto. %</label><input id="dto" type="number" min="0" max="100" value="0"></div>
-<button onclick="addItem()">Añadir</button>
-</div>
-<label>Observaciones</label><textarea id="obs" placeholder="Notas clínicas, color, citas, pruebas, etc."></textarea>
-<div class="actions">
-<button onclick="render()">Actualizar</button>
-<button class="secondary" onclick="copyBudget()">Copiar WhatsApp/email</button>
-<button class="ghost" onclick="window.print()">Imprimir / PDF</button>
-<button class="ghost" onclick="clearAll()">Nuevo</button>
-</div>
-</section>
+      <nav class="nav">
+        <button class="nav-item active">Nueva cotización</button>
+        <button class="nav-item">Historial</button>
+        <button class="nav-item">Protocolos</button>
+        <button class="nav-item">Materiales</button>
+        <button class="nav-item">Lista de precios</button>
+        <button class="nav-item">Contactar laboratorio</button>
+      </nav>
 
-<section class="card" id="budget">
-<h2>Presupuesto clínico</h2>
-<div class="small" id="meta"></div>
-<table class="table"><thead><tr><th>Concepto</th><th>Ud.</th><th>Precio</th><th>Total</th></tr></thead><tbody id="lines"></tbody></table>
-<div class="total" id="total">0 €</div>
-<div id="avisos"></div>
-</section>
-</div>
-</main>
-<script>
-const productos = [
-["Corona monolítica Standard sobre tallado",80,"Zirconio monolítico promo"],
-["Corona monolítica Standard sobre implante",90,"Zirconio monolítico promo"],
-["Pieza póntica zirconio monolítico Standard",75,"Zirconio monolítico promo"],
-["PMMA tallado/póntico normal",12,"PMMA"],
-["PMMA implante/interface normal",17,"PMMA"],
-["PMMA multicapa larga duración tallado/póntico",30,"PMMA"],
-["PMMA multicapa larga duración implante/interface",45,"PMMA"],
-["Férula descarga transparente",80,"PMMA"],
-["Cubeta fenestrada",25,"Varios"],
-["Plancha base con rodetes",20,"Varios"],
-["Plancha articulación atornillada",20,"Varios"],
-["Guía verificación implantes",20,"Varios"],
-["Llave mockup",25,"Varios"],
-["Llave silicona transparente",30,"Varios"],
-["Guía tallado",20,"Varios"],
-["Férula blanqueamiento",25,"Varios"],
-["Vacum",25,"Varios"],
-["Modelo yeso tipo III",3,"Varios"],
-["Modelo yeso tipo IV",5,"Varios"],
-["Wax-up analógico unidad",20,"Varios"],
-["Metal-cerámica corona anterior sobre implante",170,"Metal-cerámica"],
-["Metal-cerámica corona posterior sobre implante",150,"Metal-cerámica"],
-["Metal-cerámica corona anterior sobre tallado",120,"Metal-cerámica"],
-["Metal-cerámica corona posterior sobre tallado",100,"Metal-cerámica"],
-["Encía cerámica unidad",30,"Metal-cerámica / Zirconio"],
-["Rehabilitación atornillada completa metal-cerámica",3000,"Metal-cerámica"],
-["Corrección angulación implante",55,"Metal-cerámica"],
-["Pilar titanio",95,"Metal-cerámica"],
-["Barra pasividad atornillada",200,"Metal-cerámica"],
-["Blender por implante",70,"Metal-cerámica"],
-["Blender por póntico",55,"Metal-cerámica"],
-["Maryland zirconio maquillado",130,"Zirconio"],
-["Rehabilitación zirconio estratificada cut-back vestibular",2500,"Zirconio"],
-["Pilar circonio fresado",95,"Zirconio"],
-["Corona zirconio estratificada anterior implante",150,"Zirconio"],
-["Corona zirconio estratificada posterior implante",130,"Zirconio"],
-["Rehabilitación zirconio monolítica maquillada",2000,"Zirconio"],
-["Corona monolítica personalizada",100,"Zirconio"],
-["Carilla zirconio maquillada",100,"Zirconio"],
-["Carilla feldespática",180,"Adhesiva y feldespática"],
-["Inlay / Onlay / Tabletop disilicato",130,"Adhesiva y feldespática"],
-["Carilla disilicato maquillada",130,"Adhesiva y feldespática"],
-["Carilla IPS Empress maquillada",150,"Adhesiva y feldespática"],
-["Carilla disilicato estratificada",150,"Adhesiva y feldespática"],
-["Corona disilicato estratificada anterior",150,"Adhesiva y feldespática"],
-["Corona disilicato estratificada posterior",130,"Adhesiva y feldespática"]
-];
-let items = JSON.parse(localStorage.getItem("dd_items")||"[]");
-function init(){
- const s=document.getElementById("concepto");
- productos.forEach((p,i)=>{let o=document.createElement("option");o.value=i;o.textContent=`${p[0]} · ${p[1]} €`;s.appendChild(o)})
- ["clinica","doctor","paciente","flujo","estetica","implantes","scanbody","obs"].forEach(id=>{
-   const el=document.getElementById(id); el.value=localStorage.getItem("dd_"+id)||el.value||"";
-   el.addEventListener("input",()=>{localStorage.setItem("dd_"+id,el.value); render();});
- });
- render();
-}
-function addItem(){
- const p=productos[+document.getElementById("concepto").value];
- const qty=+document.getElementById("cantidad").value||1, dto=+document.getElementById("dto").value||0;
- items.push({name:p[0], price:p[1], cat:p[2], qty, dto});
- localStorage.setItem("dd_items",JSON.stringify(items)); render();
-}
-function removeItem(i){items.splice(i,1);localStorage.setItem("dd_items",JSON.stringify(items));render();}
-function money(n){return n.toLocaleString("es-ES",{style:"currency",currency:"EUR"}).replace(",00","")}
-function render(){
- let total=0, lines="";
- items.forEach((it,i)=>{let line=it.qty*it.price*(1-it.dto/100); total+=line;
- lines += `<tr><td>${it.name}<br><span class="small">${it.cat}${it.dto?` · dto ${it.dto}%`:""}</span></td><td>${it.qty}</td><td>${money(it.price)}</td><td>${money(line)} <button class="ghost no-print" onclick="removeItem(${i})">×</button></td></tr>`;
- });
- document.getElementById("lines").innerHTML=lines||`<tr><td colspan="4" class="small">Sin conceptos añadidos.</td></tr>`;
- document.getElementById("total").textContent=money(total);
- const vals=id=>document.getElementById(id).value;
- document.getElementById("meta").innerHTML=`Fecha: ${new Date().toLocaleDateString("es-ES")}<br>Clínica: ${vals("clinica")||"—"} · Doctor/a: ${vals("doctor")||"—"} · Paciente/ref.: ${vals("paciente")||"—"}<br>Flujo: ${vals("flujo")} · Implantes: ${vals("implantes")} · Estética: ${vals("estetica")}`;
- let avisos = [];
- if(vals("estetica")==="Sí") avisos.push("Caso con alto requerimiento estético: enviar fotografías, información completa del paciente y modelos/escaneado pretratamiento para valorar el plan.");
- if(vals("implantes")==="Sí") avisos.push("Sobre implantes: aditamentos, Ti-base, cementado, modelos impresos y encía impresa pueden presupuestarse aparte salvo indicación expresa.");
- if(vals("flujo")==="Digital" && vals("implantes")==="Sí") avisos.push("Digital sobre implantes: indicar marca y referencia del scan body. Antirrotatorio en unidad; rotatorio en puentes.");
- avisos.push("Consultar siempre la cita con el laboratorio antes de citar al paciente para no interferir en la agenda interna.");
- const obs=vals("obs"); if(obs) avisos.push("Observaciones: "+obs);
- document.getElementById("avisos").innerHTML=avisos.map(a=>`<div class="notice">${a}</div>`).join("");
-}
-function budgetText(){
- return document.getElementById("budget").innerText;
-}
-function copyBudget(){navigator.clipboard.writeText(budgetText()); alert("Presupuesto copiado.");}
-function clearAll(){if(confirm("¿Crear presupuesto nuevo?")){items=[];localStorage.removeItem("dd_items");render();}}
-init();
-</script>
+      <div class="sidebar-note">
+        <strong>Importante</strong>
+        <span>Consulte siempre la planificación con el laboratorio antes de citar al paciente.</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Calculadora de presupuestos · 2026</p>
+          <h1>Asistente técnico de Dental Dome L.a.b.</h1>
+        </div>
+        <div class="actions">
+          <button>Protocolos</button>
+          <button>Materiales</button>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <article class="builder card">
+          <div class="steps">
+            <div class="step active"><span>1</span><small>Tipo de trabajo</small></div>
+            <div class="step"><span>2</span><small>Detalles clínicos</small></div>
+            <div class="step"><span>3</span><small>Selección</small></div>
+            <div class="step"><span>4</span><small>Resumen</small></div>
+          </div>
+
+          <div class="panel">
+            <h2>¿Qué desea presupuestar?</h2>
+
+            <div class="work-grid">
+              <button class="work-card selected"><span>🦷</span><strong>Corona</strong><small>Unitaria</small></button>
+              <button class="work-card"><span>🦷🦷</span><strong>Puente</strong><small>2 o más unidades</small></button>
+              <button class="work-card"><span>🔩</span><strong>Sobre implantes</strong><small>Unitario o puente</small></button>
+              <button class="work-card"><span>◖</span><strong>Carilla / Inlay-Onlay</strong><small>Estética adhesiva</small></button>
+              <button class="work-card"><span>▱</span><strong>Rehabilitación completa</strong><small>Dientes o implantes</small></button>
+              <button class="work-card"><span>•••</span><strong>Varios / auxiliares</strong><small>Modelos, guías, férulas</small></button>
+            </div>
+
+            <h3>Preguntas clave</h3>
+            <div class="question-grid">
+              <label>
+                <span>¿Alto requerimiento estético?</span>
+                <select id="esthetic"><option>Sí</option><option>No</option></select>
+              </label>
+              <label>
+                <span>Flujo de trabajo</span>
+                <select id="flow"><option>Digital</option><option>Analógico</option></select>
+              </label>
+              <label>
+                <span>¿Sobre implantes?</span>
+                <select id="implants"><option>Sí</option><option>No</option></select>
+              </label>
+              <label>
+                <span>Tipo de scan body</span>
+                <select id="scanbody"><option>Rotatorio (puentes)</option><option>Antirrotatorio (unitarios)</option><option>No aplica</option></select>
+              </label>
+            </div>
+
+            <div class="remember">
+              <strong>Recuerde</strong>
+              <p>Los precios indicados son por unidad, salvo indicación expresa. Modelos impresos, encía impresa y aditamentos se presupuestan aparte.</p>
+            </div>
+
+            <button class="primary">Siguiente</button>
+          </div>
+        </article>
+
+        <aside class="quote card">
+          <div class="quote-header">
+            <div>
+              <p class="eyebrow">Borrador</p>
+              <h2>Presupuesto clínico</h2>
+            </div>
+            <span class="badge">DD-2026</span>
+          </div>
+
+          <div class="meta">
+            <p>Fecha: <strong id="date"></strong></p>
+            <p>Clínica: —</p>
+            <p>Doctor/a: —</p>
+            <p>Paciente/ref.: —</p>
+            <p>Flujo: <span id="flowOut">Digital</span> · Implantes: <span id="implantsOut">Sí</span> · Estética: <span id="estheticOut">Sí</span></p>
+          </div>
+
+          <div class="table">
+            <div class="thead">
+              <span>Concepto</span><span>Ud.</span><span>Precio</span><span>Total</span>
+            </div>
+            <div class="empty">
+              <span>📄</span>
+              <p>Aún no hay conceptos añadidos.</p>
+              <small>Seleccione el tipo de trabajo y complete los pasos.</small>
+            </div>
+            <div class="total">
+              <span>Total</span>
+              <strong>0,00 €</strong>
+            </div>
+          </div>
+
+          <div class="notices">
+            <div><strong>Alto requerimiento estético</strong><p>Enviar fotografías, información completa del paciente y modelos/escaneado pretratamiento.</p></div>
+            <div><strong>Sobre implantes</strong><p>Aditamentos, Ti-base, cementado, modelos impresos y encía impresa pueden presupuestarse aparte.</p></div>
+            <div><strong>Digital</strong><p>Indicar marca y referencia del scan body. Antirrotatorio en unitarios; rotatorio en puentes.</p></div>
+          </div>
+
+          <div class="quote-actions">
+            <button class="primary">Exportar PDF</button>
+            <button>Enviar por WhatsApp</button>
+          </div>
+        </aside>
+      </section>
+
+      <footer>
+        <span>www.dentaldome.es</span>
+        <span>@javiercuetomateos</span>
+        <span>Dental Dome L.a.b.</span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
