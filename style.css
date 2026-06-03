@@ -692,5 +692,37 @@ td.num{
 
   .panel{
     box-shadow:none;
-  }
+    .dental-cross-row{
+  display:grid;
+  grid-template-columns:repeat(6,48px) 28px repeat(6,48px);
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+
+.odontogram-divider{
+  width:1px;
+  height:58px;
+  background:#c8c5b8;
+  display:block;
+  margin:auto;
+}
+
+.odontogram-separator{
+  width:min(780px,100%);
+  height:1px;
+  border-top:2px dashed #c8c5b8;
+  margin:8px auto;
+}
+
+@media(max-width:720px){
+.dental-cross-row{
+    grid-template-columns:repeat(6,42px) 18px repeat(6,42px);
+    gap:6px;
+}
+
+.odontogram-divider{
+    height:48px;
+  
+ }
 }
