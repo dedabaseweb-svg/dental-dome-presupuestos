@@ -723,6 +723,26 @@ td.num{
 
 .odontogram-divider{
     height:48px;
+
+.print-logo{
+  display:none;
+}
+
+@media print{
+  .print-logo{
+    display:block!important;
+    width:120px;
+    margin:0 0 18px 0;
+  }
+
+  .quote-panel::before{
+    content:"";
+    display:block;
+    width:120px;
+    height:90px;
+    background:url("logo-dental-dome.png") no-repeat left center;
+    background-size:contain;
+    margin-bottom:18px;
   
  }
 }
