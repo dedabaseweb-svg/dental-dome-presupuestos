@@ -751,10 +751,9 @@ function renderLibraries(){
 /* ODONTOGRAMA */
 
 const TEETH_ROWS = [
-  [18,17,16,15,14,13,12,11],
-  [21,22,23,24,25,26,27,28],
-  [48,47,46,45,44,43,42,41],
-  [31,32,33,34,35,36,37,38]
+  [16,15,14,13,12,11, "divider", 21,22,23,24,25,26],
+  ["separator"],
+  [46,45,44,43,42,41, "divider", 31,32,33,34,35,36]
 ];
 
 let selectedTooth = null;
@@ -764,21 +763,31 @@ function renderOdontogram(){
   const el = $("odontogram");
   if(!el) return;
 
-  el.innerHTML = TEETH_ROWS.map(row => `
-    <div class="odontogram-row">
-      ${row.map(t => {
-        const item = clinicalCase[t];
-        const classes = [
-          "tooth-btn",
-          selectedTooth === t ? "selected" : "",
-          item ? "has-work" : "",
-          item?.restoration === "implante" ? "implant" : ""
-        ].join(" ");
+  el.innerHTML = TEETH_ROWS.map(row => {
+    if(row[0] === "separator"){
+      return `<div class="odontogram-separator"></div>`;
+    }
 
-        return `<button class="${classes}" onclick="selectTooth(${t})">${t}</button>`;
-      }).join("")}
-    </div>
-  `).join("");
+    return `
+      <div class="odontogram-row dental-cross-row">
+        ${row.map(t => {
+          if(t === "divider"){
+            return `<span class="odontogram-divider"></span>`;
+          }
+
+          const item = clinicalCase[t];
+          const classes = [
+            "tooth-btn",
+            selectedTooth === t ? "selected" : "",
+            item ? "has-work" : "",
+            item?.restoration === "implante" ? "implant" : ""
+          ].join(" ");
+
+          return `<button class="${classes}" onclick="selectTooth(${t})">${t}</button>`;
+        }).join("")}
+      </div>
+    `;
+  }).join("");
 
   renderCaseSummary();
 }
