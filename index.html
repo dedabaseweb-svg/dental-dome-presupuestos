@@ -10,12 +10,18 @@
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
-        <img src="logo-dark.png" onerror="this.onerror=null;this.src='assets/logo-dental-dome.png';" alt="Dental Dome" class="brand-logo" />
+        <img
+          src="logo-dental-dome-cream.png"
+          onerror="this.onerror=null;this.src='assets/logo-dental-dome-cream.png';"
+          alt="Dental Dome"
+          class="brand-logo"
+        />
         <p>Clinical & Laboratory Workflow</p>
       </div>
 
       <nav class="nav">
         <button class="nav-item active" data-view="presupuesto">Nuevo presupuesto / pedido</button>
+        <button class="nav-item" data-view="caso">Caso clínico</button>
         <button class="nav-item" data-view="protocolos">Protocolos</button>
         <button class="nav-item" data-view="tarifas">Lista de precios</button>
       </nav>
@@ -94,7 +100,10 @@
                 <span class="eyebrow">Presupuesto clínico</span>
                 <h2 id="quoteNumber">DD-2026-001</h2>
               </div>
-              <div class="quote-actions"><button class="ghost small" id="recalculateQuote">Recalcular</button><button class="ghost small" id="clearQuote">Vaciar</button></div>
+              <div class="quote-actions">
+                <button class="ghost small" id="recalculateQuote">Recalcular</button>
+                <button class="ghost small" id="clearQuote">Vaciar</button>
+              </div>
             </div>
 
             <div class="quote-meta" id="quoteMeta">
@@ -136,6 +145,67 @@
             </div>
           </aside>
         </div>
+      </section>
+
+      <section class="view" id="view-caso">
+        <section class="panel wide">
+          <div class="panel-head">
+            <span class="step">02</span>
+            <div>
+              <h2>Diseño del caso clínico</h2>
+              <p>Selecciona las piezas y asigna restauraciones. Los modelos se calculan una sola vez por caso.</p>
+            </div>
+          </div>
+
+          <div class="case-toolbar">
+            <button class="ghost small" id="clearCase">Limpiar caso</button>
+            <button class="primary small" id="generateCaseQuote">Generar presupuesto del caso</button>
+          </div>
+
+          <div class="odontogram-wrap">
+            <h3>Odontograma</h3>
+            <div id="odontogram" class="odontogram"></div>
+          </div>
+
+          <div class="case-editor" id="caseEditor">
+            <h3>Pieza seleccionada: <span id="selectedTooth">—</span></h3>
+
+            <div class="subgrid">
+              <label>Restauración
+                <select id="toothRestoration">
+                  <option value="">Seleccionar</option>
+                  <option value="corona">Corona</option>
+                  <option value="carilla">Carilla</option>
+                  <option value="inlay_onlay">Inlay / Onlay / Table Top</option>
+                  <option value="implante">Implante</option>
+                  <option value="pontico">Póntico</option>
+                  <option value="ausente">Ausente</option>
+                </select>
+              </label>
+
+              <label>Material
+                <select id="toothMaterial">
+                  <option value="">Seleccionar</option>
+                  <option value="zr_mono_std_tallado">Zirconio monolítico Standard</option>
+                  <option value="zr_mono_personalizada">Zirconio monolítico personalizado</option>
+                  <option value="carilla_feldespatica">Carilla feldespática</option>
+                  <option value="carilla_disilicato_maquillada">Carilla e.max maquillada</option>
+                  <option value="carilla_disilicato_estratificada">Carilla e.max estratificada</option>
+                  <option value="inlay_onlay_tabletop_disilicato">Inlay / Onlay / Table Top disilicato</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="actions">
+              <button class="primary" id="saveTooth">Guardar pieza</button>
+            </div>
+          </div>
+
+          <div class="protocol-box case-summary-box">
+            <h3>Resumen del caso</h3>
+            <div id="caseSummary">Sin piezas seleccionadas.</div>
+          </div>
+        </section>
       </section>
 
       <section class="view" id="view-protocolos">
