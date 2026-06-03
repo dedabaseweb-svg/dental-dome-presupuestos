@@ -728,14 +728,30 @@ function renderProtocols(){
 }
 
 function renderLibraries(){
-  if($("protocolLibrary")){
-    $("protocolLibrary").innerHTML = Object.values(PROTOCOLS).map(p=>`
-      <div class="protocol-block">
-        <h3>${p.titulo}</h3>
-        <ul>${p.puntos.map(x=>`<li>${x}</li>`).join("")}</ul>
+ if($("priceLibrary")){
+  const groupedPrices = [
+    ["Coronas", DATA.coronas],
+    ["Adhesiva / estética", DATA.adhesiva],
+    ["Provisionales", DATA.provisionales],
+    ["Rehabilitaciones completas", DATA.rehabilitaciones],
+    ["Auxiliares / modelos / laboratorio", DATA.auxiliares]
+  ];
+
+  $("priceLibrary").innerHTML = groupedPrices.map(([title, list]) => `
+    <div class="price-category">
+      <h3>${title}</h3>
+      <div class="price-category-grid">
+        ${list.map(p => `
+          <div class="price-card">
+            <strong>${p.precio == null ? "Manual / confirmar" : eur(p.precio)}</strong>
+            <span>${p.nombre}</span>
+            <span>${p.unidad || "unidad"}</span>
+          </div>
+        `).join("")}
       </div>
-    `).join("");
-  }
+    </div>
+  `).join("");
+}
 
   if($("priceLibrary")){
     $("priceLibrary").innerHTML = allProducts().map(p=>`
@@ -973,7 +989,11 @@ if($("clearQuote")){
 
 if($("recalculateQuote")) $("recalculateQuote").addEventListener("click",recalculateQuote);
 if($("resetForm")) $("resetForm").addEventListener("click",renderForm);
-if($("printPdf")) $("printPdf").addEventListener("click",()=>window.print());
+$("printPdf").addEventListener("click",()=>{
+  document.body.classList.add("printing-quote");
+  window.print();
+  setTimeout(()=>document.body.classList.remove("printing-quote"),500);
+});
 
 if($("copyWhatsApp")){
   $("copyWhatsApp").addEventListener("click",()=>{
