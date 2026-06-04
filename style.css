@@ -489,25 +489,25 @@ td.num{
 
 .price-library{
   display:grid;
+  gap:28px;
+}
+
+.price-category{
+  display:grid;
+  gap:12px;
+}
+
+.price-category h3{
+  margin:0;
+  padding-bottom:8px;
+  border-bottom:1px solid #d8d4c8;
+  color:var(--ink);
+}
+
+.price-category-grid{
+  display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:14px;
-}
-
-.price-card{
-  padding:14px;
-  border:1px solid #d8d4c8;
-  border-radius:16px;
-  background:#fffef8;
-}
-
-.price-card span{
-  display:block;
-  color:var(--muted);
-  font-size:.82rem;
-}
-
-.price-card strong{
-  font-size:1.1rem;
 }
 
 .wide{
