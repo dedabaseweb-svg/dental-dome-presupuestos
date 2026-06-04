@@ -774,16 +774,6 @@ function renderLibraries(){
   }
 }
 
-  if($("priceLibrary")){
-    $("priceLibrary").innerHTML = allProducts().map(p=>`
-      <div class="price-card">
-        <strong>${p.precio == null ? "Manual / confirmar" : eur(p.precio)}</strong>
-        <span>${p.nombre}</span>
-        <span>${p.unidad || "unidad"}</span>
-      </div>
-    `).join("");
-  }
-}
 
 /* ODONTOGRAMA */
 
