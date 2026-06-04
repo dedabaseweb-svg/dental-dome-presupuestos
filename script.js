@@ -728,29 +728,50 @@ function renderProtocols(){
 }
 
 function renderLibraries(){
- if($("priceLibrary")){
-  const groupedPrices = [
-    ["Coronas", DATA.coronas],
-    ["Adhesiva / estética", DATA.adhesiva],
-    ["Provisionales", DATA.provisionales],
-    ["Rehabilitaciones completas", DATA.rehabilitaciones],
-    ["Auxiliares / modelos / laboratorio", DATA.auxiliares]
-  ];
+  if($("priceLibrary")){
+    const groupedPrices = [
+      ["Zirconio sobre tallado", DATA.coronas.filter(p =>
+        p.id.includes("tallado") || p.id === "zr_mono_personalizada"
+      )],
+      ["Zirconio sobre implante", DATA.coronas.filter(p =>
+        p.id.includes("implante") || p.nombre.toLowerCase().includes("s/i")
+      )],
+      ["Disilicato de litio", DATA.coronas.filter(p =>
+        p.id.includes("disilicato")
+      )],
+      ["Metal-cerámica", DATA.coronas.filter(p =>
+        p.id.includes("metal_ceramica")
+      )],
+      ["Adhesiva / estética", DATA.adhesiva],
+      ["Provisionales", DATA.provisionales],
+      ["Rehabilitaciones completas", DATA.rehabilitaciones],
+      ["Modelos, implantes y auxiliares", DATA.auxiliares]
+    ];
 
-  $("priceLibrary").innerHTML = groupedPrices.map(([title, list]) => `
-    <div class="price-category">
-      <h3>${title}</h3>
-      <div class="price-category-grid">
-        ${list.map(p => `
-          <div class="price-card">
-            <strong>${p.precio == null ? "Manual / confirmar" : eur(p.precio)}</strong>
-            <span>${p.nombre}</span>
-            <span>${p.unidad || "unidad"}</span>
-          </div>
-        `).join("")}
+    $("priceLibrary").innerHTML = groupedPrices.map(([title, list]) => `
+      <div class="price-category">
+        <h3>${title}</h3>
+        <div class="price-category-grid">
+          ${list.map(p => `
+            <div class="price-card">
+              <strong>${p.precio == null ? "Manual / confirmar" : eur(p.precio)}</strong>
+              <span>${p.nombre}</span>
+              <span>${p.unidad || "unidad"}</span>
+            </div>
+          `).join("")}
+        </div>
       </div>
-    </div>
-  `).join("");
+    `).join("");
+  }
+
+  if($("protocolLibrary")){
+    $("protocolLibrary").innerHTML = Object.values(PROTOCOLS).map(p => `
+      <div class="protocol-block">
+        <h3>${p.titulo}</h3>
+        <ul>${p.puntos.map(x => `<li>${x}</li>`).join("")}</ul>
+      </div>
+    `).join("");
+  }
 }
 
   if($("priceLibrary")){
