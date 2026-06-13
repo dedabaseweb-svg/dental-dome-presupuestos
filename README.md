@@ -1,26 +1,36 @@
 # Dental Dome L.a.b.
 ## Asistente técnico de presupuestos y protocolos clínico-laboratorio
 
-Última actualización: Junio 2026
+Versión Beta 1.0  
+Junio 2026
 
 ---
 
-# Estado actual del proyecto
+# Descripción
 
-La aplicación ya dispone de:
+Aplicación web desarrollada para facilitar la comunicación clínica-laboratorio, la elaboración de presupuestos protésicos y la generación de protocolos de trabajo estandarizados.
 
-## Navegación principal
-
-- Nuevo presupuesto / pedido
-- Caso clínico
-- Protocolos
-- Lista de precios
+Su objetivo es reducir errores de comunicación, agilizar la planificación de casos y mejorar la coordinación entre clínica y laboratorio.
 
 ---
 
-# Presupuestos
+# Funcionalidades principales
 
-## Funcionalidades implementadas
+## Presupuestos
+
+Permite crear presupuestos protésicos de forma rápida mediante selección guiada de tratamientos.
+
+Incluye:
+
+- Coronas
+- Puentes
+- Rehabilitaciones completas
+- Prótesis adhesivas
+- Provisionales
+- Mock-ups
+- Férulas
+- Guías quirúrgicas
+- Auxiliares y modelos
 
 ### Datos del caso
 
@@ -29,89 +39,30 @@ La aplicación ya dispone de:
 - Paciente / referencia
 - Fecha prevista
 
-### Categorías de trabajo
-
-- Corona
-- Puente
-- Rehabilitación completa
-- Adhesiva
-- Provisionales
-- Mock-up
-- Férulas
-- Guías quirúrgicas
-- Auxiliares / modelos
-
-### Presupuesto
+### Gestión económica
 
 - Añadir líneas
 - Editar líneas
 - Eliminar líneas
-- Recalcular
+- Recalcular presupuesto
 - Vaciar presupuesto
 - Total automático
 
-### Avisos automáticos
-
-- Consultar siempre fecha con laboratorio antes de citar al paciente.
-- Requerimiento estético → solicitar fotografías y registros completos.
-- Casos implantológicos → solicitar referencia de componentes.
-
 ---
 
-# Lista de precios
+# Odontograma integrado
 
-La tarifa ya está organizada por categorías.
+El odontograma está completamente integrado en el flujo de presupuesto.
 
-## Zirconio sobre tallado
+Permite:
 
-- Corona monolítica Standard
-- Corona monolítica personalizada
-- Corona estratificada anterior
-- Corona estratificada posterior
-- Corona Cr-Co metal-cerámica anterior
-- Corona Cr-Co metal-cerámica posterior
+- Selección de piezas
+- Restauraciones por pieza
+- Definición de materiales
+- Resumen automático del caso
+- Generación de presupuesto desde odontograma
 
-## Zirconio sobre implante
-
-- Corona monolítica Standard
-- Corona estratificada anterior
-- Corona estratificada posterior
-- Corona Cr-Co metal-cerámica anterior
-- Corona Cr-Co metal-cerámica posterior
-
-## Disilicato de litio
-
-- Corona maquillada Standard
-- Corona maquillada personalizada
-- Corona estratificada anterior
-- Corona estratificada posterior
-
-## Metal-cerámica
-
-- Tallado anterior
-- Tallado posterior
-- Implante anterior
-- Implante posterior
-
-## Adhesiva / estética
-
-- Carilla feldespática
-- Carilla e.max maquillada
-- Carilla e.max estratificada
-- Carilla IPS Empress
-- Inlay / Onlay / Table Top
-- Maryland e.max
-- Maryland metal-cerámica
-
----
-
-# Caso clínico
-
-## Implementado
-
-Odontograma interactivo.
-
-### Restauraciones
+## Restauraciones disponibles
 
 - Corona
 - Carilla
@@ -120,77 +71,24 @@ Odontograma interactivo.
 - Póntico
 - Ausente
 
-### Materiales
+## Materiales disponibles
 
 - Zirconio monolítico Standard
 - Zirconio monolítico personalizado
 - Carilla feldespática
 - Carilla e.max maquillada
 - Carilla e.max estratificada
-- Inlay / Onlay / Table Top disilicato
-
-### Funciones
-
-- Selección de pieza
-- Guardar restauración
-- Resumen del caso
-- Generar presupuesto desde odontograma
-
----
-
-# Cambios recientes
-
-## Pónticos diferenciados visualmente
-
-Pendiente de implementar.
-
-Objetivo:
-
-- Corona = verde corporativo actual.
-- Póntico = mismo tono pero más claro.
-
-Ejemplo:
-
-```css
-.tooth-btn.pontic{
-  background:#9ea694;
-  color:white;
-}
-```
-
----
-
-## Ampliación del odontograma
-
-Pendiente de implementar.
-
-Actualmente:
-
-Superior:
-11-16 y 21-26
-
-Inferior:
-31-36 y 41-46
-
-Debe ampliarse a:
-
-Superior:
-17 16 15 14 13 12 11 | 21 22 23 24 25 26 27
-
-Inferior:
-47 46 45 44 43 42 41 | 31 32 33 34 35 36 37
+- Inlay / Onlay / Table Top en disilicato
 
 ---
 
 # Protocolos integrados
 
-## Disponibles
+La aplicación incorpora protocolos resumidos para consulta rápida.
+
+## Disponibles actualmente
 
 ### Implantes metal-cerámica
-
-Basado en:
-
-Protocolo_Implantes_Metal_Ceramica_V2.pdf
 
 Incluye:
 
@@ -204,158 +102,158 @@ Incluye:
 
 ### BOPT
 
-Basado en:
-
-PC25-BOPT-CONCEPTO-ANTECEDENTES-HISTORICOS-Y-PRINCIPIOS-BASICOS-CLINICOS.pdf
+Basado en los principios clínicos del protocolo BOPT.
 
 ### Zirconio Katana
 
-Basado en:
-
-2023-033-KN-ES-KATANA_Zirconia_Sistema_brochure_V_web_2.pdf
+Basado en documentación oficial Kuraray Noritake.
 
 ### Cerabien MiLai
 
-Basado en:
-
-CERABIEN MiLai TECHNICAL GUIDE LR.pdf
+Basado en guía técnica oficial.
 
 ---
 
-# PDF
+# Avisos automáticos
 
-Estado actual:
+La aplicación genera recordatorios según el tipo de caso.
 
-Funciona.
+## Casos estéticos
 
-Problemas detectados:
+Solicita:
 
-- Diseño básico.
-- Sin logotipo.
-- Sin identidad corporativa.
-- El total mostrado en PDF parece no coincidir con la suma de líneas en algunos casos.
-- El protocolo ocupa demasiado espacio.
-
----
-
-# Próxima fase (prioridad máxima)
-
-## Rediseño completo PDF
-
-### Página 1
-
-Cabecera corporativa
-
-- Logo Dental Dome
-- Presupuesto protésico
-- Número de presupuesto
-- Fecha
-
-Datos:
-
-- Clínica
-- Doctor
-- Paciente
-
-Resumen:
-
-- Piezas restauradas
-- Tipo de trabajo
-- Material principal
-
-Mini odontograma coloreado.
+- Fotografías clínicas de calidad
+- Modelos o escaneado pretratamiento
+- Color guía VITA
+- Información clínica completa
 
 ---
 
-### Página 2
+## Casos implantológicos digitales
 
-Tabla económica profesional
+Solicita:
 
-Columnas:
+### Unidad
 
-- Pieza
-- Restauración
-- Material
-- Importe
+- Scanbody antirrotatorio
+- Marca
+- Referencia
 
-Bloque total destacado.
+### Puentes
 
-Observaciones automáticas:
-
-- Modelos
-- Scanbodies
-- Encía impresa
-- Agenda del laboratorio
-
-Pie corporativo.
+- Scanbody rotatorio
+- Marca
+- Referencia
 
 ---
 
-# Identidad visual
+## Agenda del laboratorio
 
-Colores corporativos
+Recordatorio automático:
 
-```css
---olive-dark:#4f594c;
---olive:#7a8372;
---paper:#f7f5ec;
---ink:#252722;
-```
+> Consultar siempre la fecha con el laboratorio antes de citar al paciente.
 
 ---
 
-# Pendiente inmediato
+# PDF corporativo
 
-1. Añadir 17, 27, 37 y 47 al odontograma.
-2. Diferenciar visualmente los pónticos.
-3. Localizar función JavaScript de generación PDF.
-4. Corregir discrepancia de totales.
-5. Incorporar logotipo Dental Dome al PDF.
-6. Crear PDF corporativo en dos páginas.
-7. Añadir odontograma al PDF.
-8. Añadir observaciones inteligentes según tipo de trabajo.
+Generación automática de PDF con:
 
----
-
-# Recordatorios de laboratorio
-
-## Estética
-
-Preguntar siempre:
-
-¿El caso tiene alto requerimiento estético?
-
-Si la respuesta es sí:
-
-Solicitar:
-
-- Fotografías clínicas de calidad.
-- Escaneado o modelos pretratamiento.
-- Color guía VITA.
-- Información clínica completa.
+- Identidad Dental Dome
+- Logotipo corporativo
+- Datos del caso
+- Tabla económica
+- Total calculado
+- Observaciones automáticas
+- Odontograma incluido
 
 ---
 
-## Digital implantes
+# Lista de precios
 
-Solicitar siempre:
+Tarifa organizada por categorías:
 
-Unidad:
+## Zirconio sobre tallado
 
-- Scanbody antirrotatorio.
-- Marca.
-- Referencia.
+- Corona monolítica Standard
+- Corona monolítica personalizada
+- Corona estratificada anterior
+- Corona estratificada posterior
+- Corona metal-cerámica anterior
+- Corona metal-cerámica posterior
 
-Puentes:
+## Zirconio sobre implante
 
-- Scanbody rotatorio.
-- Marca.
-- Referencia.
+- Corona monolítica Standard
+- Corona estratificada anterior
+- Corona estratificada posterior
+- Corona metal-cerámica anterior
+- Corona metal-cerámica posterior
+
+## Disilicato de litio
+
+- Corona maquillada Standard
+- Corona maquillada personalizada
+- Corona estratificada anterior
+- Corona estratificada posterior
+
+## Adhesiva
+
+- Carilla feldespática
+- Carilla e.max maquillada
+- Carilla e.max estratificada
+- Carilla IPS Empress
+- Inlay / Onlay / Table Top
+- Maryland e.max
+- Maryland metal-cerámica
 
 ---
 
-## Agenda
+# Tecnologías utilizadas
 
-Siempre indicar:
+- HTML5
+- CSS3
+- JavaScript Vanilla
+- jsPDF
+- html2canvas
 
-"Consultar la fecha con el laboratorio antes de citar al paciente."
+---
+
+# Estado del proyecto
+
+Versión Beta 1.0
+
+Funcional para uso clínico real.
+
+Pendiente de futuras mejoras:
+
+- Historial de presupuestos
+- Base de datos online
+- Gestión de usuarios
+- Portal para clínicas
+- Envío automático de casos
+- Integración con fotografía clínica
+- Exportación avanzada PDF
+
+---
+
+# Importante
+
+Los presupuestos generados tienen carácter orientativo y están sujetos a validación técnica por parte de Dental Dome L.a.b.
+
+La fecha de entrega deberá ser siempre confirmada previamente con el laboratorio.
+
+---
+
+# Contacto
+
+Dental Dome L.a.b.
+
+Web:
+https://www.dentaldome.es
+
+Instagram:
+https://www.instagram.com/javiercuetomateos
+
+---
+Clinical & Laboratory Workflow
