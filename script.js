@@ -1039,151 +1039,217 @@ Las interfases/TiBases no están incluidas en el presupuesto del laboratorio sal
   });
 }
 async function generateCorporatePdf(){
-
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF("p","mm","a4");
 
-  const total = $("total")?.textContent || "0 €";
+  quote.forEach(l=>{
+    l.total = Number(l.qty || 0) * Number(l.price || 0);
+  });
 
+  const total = eur(quoteTotal());
   const clinica = $("clinica")?.value || "-";
   const doctor = $("doctor")?.value || "-";
   const paciente = $("paciente")?.value || "-";
-
   const presupuestoId = $("quoteNumber")?.textContent || "DD-2026-001";
+  const fecha = new Date().toLocaleDateString("es-ES");
 
-  const piezas = Object.values(clinicalCase)
-    .map(x=>x.tooth)
-    .join(", ") || "-";
+  const logo = document.querySelector(".brand-logo");
 
-  const trabajos = [...new Set(
-    quote.map(x=>x.nombre.split("·")[0].trim())
-  )].join(", ");
+  function addHeader(title){
+    doc.setFillColor(79,89,76);
+    doc.rect(0,0,210,24,"F");
 
-  /* PAGINA 1 */
+    if(logo){
+      try{
+        doc.addImage(logo,"PNG",14,5,22,14);
+      }catch(e){}
+    }
 
-  doc.setFillColor(79,89,76);
-  doc.rect(0,0,210,22,"F");
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(15);
+    doc.text("Dental Dome L.a.b",42,14);
 
-  doc.setTextColor(255,255,255);
+    doc.setFontSize(10);
+    doc.text(title,145,14);
+
+    doc.setTextColor(37,39,34);
+  }
+
+  function drawTooth(x,y,tooth){
+    const item = clinicalCase[tooth];
+    let fill = [238,236,226];
+    let text = [37,39,34];
+
+    if(item){
+      fill = [122,131,114];
+      text = [255,255,255];
+    }
+
+    if(item?.restoration === "implante"){
+      fill = [57,71,57];
+      text = [255,255,255];
+    }
+
+    if(item?.restoration === "pontico"){
+      fill = [158,166,148];
+      text = [255,255,255];
+    }
+
+    if(item?.restoration === "ausente"){
+      fill = [216,212,200];
+      text = [110,110,110];
+    }
+
+    doc.setFillColor(...fill);
+    doc.setDrawColor(215,212,200);
+    doc.roundedRect(x,y,9,9,2,2,"FD");
+
+    doc.setTextColor(...text);
+    doc.setFontSize(6.5);
+    doc.text(String(tooth),x+4.5,y+6,{align:"center"});
+
+    if(item?.restoration === "ausente"){
+      doc.line(x+2,y+7,x+7,y+2);
+    }
+  }
+
+  function drawOdontogram(startX,startY){
+    const upperLeft = [17,16,15,14,13,12,11];
+    const upperRight = [21,22,23,24,25,26,27];
+    const lowerLeft = [47,46,45,44,43,42,41];
+    const lowerRight = [31,32,33,34,35,36,37];
+
+    let gap = 10.5;
+    let dividerGap = 5;
+
+    upperLeft.forEach((t,i)=>drawTooth(startX+i*gap,startY,t));
+    doc.setDrawColor(180,180,180);
+    doc.line(startX+7*gap+1,startY-2,startX+7*gap+1,startY+11);
+    upperRight.forEach((t,i)=>drawTooth(startX+7*gap+dividerGap+i*gap,startY,t));
+
+    doc.setDrawColor(200,200,200);
+    doc.setLineDashPattern([2,2],0);
+    doc.line(startX,startY+16,startX+14*gap+dividerGap-1,startY+16);
+    doc.setLineDashPattern([],0);
+
+    lowerLeft.forEach((t,i)=>drawTooth(startX+i*gap,startY+23,t));
+    doc.setDrawColor(180,180,180);
+    doc.line(startX+7*gap+1,startY+21,startX+7*gap+1,startY+34);
+    lowerRight.forEach((t,i)=>drawTooth(startX+7*gap+dividerGap+i*gap,startY+23,t));
+
+    doc.setTextColor(90,90,90);
+    doc.setFontSize(7);
+    doc.text("Corona / trabajo",startX,startY+42);
+    doc.setFillColor(122,131,114);
+    doc.roundedRect(startX+22,startY+38,5,5,1,1,"F");
+
+    doc.text("Póntico",startX+35,startY+42);
+    doc.setFillColor(158,166,148);
+    doc.roundedRect(startX+48,startY+38,5,5,1,1,"F");
+
+    doc.text("Implante",startX+62,startY+42);
+    doc.setFillColor(57,71,57);
+    doc.roundedRect(startX+76,startY+38,5,5,1,1,"F");
+  }
+
+  /* PÁGINA 1 */
+  addHeader("Presupuesto protésico");
+
   doc.setFontSize(18);
-  doc.text("DENTAL DOME L.a.b",15,14);
+  doc.setTextColor(37,39,34);
+  doc.text("Presupuesto protésico",15,40);
 
   doc.setFontSize(10);
-  doc.text("Presupuesto protésico",150,14);
+  doc.text(`Nº presupuesto: ${presupuestoId}`,15,50);
+  doc.text(`Fecha: ${fecha}`,150,50);
 
-  doc.setTextColor(0,0,0);
-
-  doc.setFontSize(14);
-  doc.text("Datos del caso",15,35);
-
-  doc.setFontSize(10);
-
-  doc.text(`Presupuesto: ${presupuestoId}`,15,45);
-  doc.text(`Fecha: ${new Date().toLocaleDateString("es-ES")}`,15,52);
-
-  doc.text(`Clínica: ${clinica}`,15,65);
-  doc.text(`Doctor/a: ${doctor}`,15,72);
-  doc.text(`Paciente: ${paciente}`,15,79);
-
-  doc.setFontSize(14);
-  doc.text("Resumen clínico",15,98);
-
-  doc.setFontSize(10);
-
-  doc.text(`Piezas restauradas: ${piezas}`,15,108);
-
-  const splitTrabajo = doc.splitTextToSize(
-    `Trabajo: ${trabajos}`,
-    170
-  );
-
-  doc.text(splitTrabajo,15,116);
-
-  doc.setDrawColor(180);
-  doc.roundedRect(15,130,180,50,3,3);
+  doc.setDrawColor(220,216,205);
+  doc.roundedRect(15,60,180,32,3,3);
 
   doc.setFontSize(11);
-  doc.text(
-    "Odontograma clínico (versión PDF corporativa pendiente de integración gráfica)",
-    20,
-    145
-  );
+  doc.text("Datos del caso",20,70);
+  doc.setFontSize(9);
+  doc.text(`Clínica: ${clinica}`,20,78);
+  doc.text(`Doctor/a: ${doctor}`,80,78);
+  doc.text(`Paciente: ${paciente}`,140,78);
+
+  doc.setFontSize(11);
+  doc.text("Odontograma",15,110);
+  drawOdontogram(25,120);
+
+  doc.setFontSize(11);
+  doc.text("Resumen",15,180);
+
+  const piezas = Object.values(clinicalCase).map(x=>x.tooth).join(", ") || "-";
+  const trabajos = [...new Set(quote.map(x=>x.nombre.split("·")[0].trim()))].join(", ") || "-";
 
   doc.setFontSize(9);
-  doc.text(
-    piezas || "Sin piezas seleccionadas",
-    20,
-    160
-  );
+  doc.text(doc.splitTextToSize(`Piezas restauradas: ${piezas}`,175),15,190);
+  doc.text(doc.splitTextToSize(`Tipo de trabajo: ${trabajos}`,175),15,202);
 
+  doc.setFillColor(247,245,236);
+  doc.roundedRect(15,225,180,28,3,3,"F");
   doc.setFontSize(9);
-  doc.text(
-    "Consultar siempre la fecha con el laboratorio antes de citar al paciente.",
-    15,
-    200
-  );
+  doc.setTextColor(79,89,76);
+  doc.text("Consultar siempre la fecha con el laboratorio antes de citar al paciente.",20,238);
 
-  /* PAGINA 2 */
-
+  /* PÁGINA 2 */
   doc.addPage();
+  addHeader("Detalle económico");
 
-  doc.setFillColor(79,89,76);
-  doc.rect(0,0,210,18,"F");
+  let y = 38;
 
-  doc.setTextColor(255,255,255);
+  doc.setTextColor(37,39,34);
   doc.setFontSize(14);
-  doc.text("Detalle económico",15,12);
+  doc.text("Detalle económico",15,y);
 
-  doc.setTextColor(0,0,0);
+  y += 12;
 
-  let y = 30;
+  doc.setFillColor(238,236,226);
+  doc.rect(15,y,180,9,"F");
 
-  doc.setFontSize(10);
+  doc.setFontSize(8.5);
+  doc.text("Pieza / concepto",18,y+6);
+  doc.text("Cant.",118,y+6);
+  doc.text("€/ud",142,y+6);
+  doc.text("Total",172,y+6);
 
-  doc.text("Concepto",15,y);
-  doc.text("Cant.",120,y);
-  doc.text("€/ud",145,y);
-  doc.text("Total",175,y);
+  y += 14;
 
-  y += 5;
+  quote.forEach(line=>{
+    if(y > 250){
+      doc.addPage();
+      addHeader("Detalle económico");
+      y = 35;
+    }
 
-  doc.line(15,y,195,y);
+    const concept = line.note ? `${line.nombre} (${line.note})` : line.nombre;
+    const text = doc.splitTextToSize(concept,92);
+    const rowHeight = Math.max(8,text.length * 4.2);
+
+    doc.setTextColor(37,39,34);
+    doc.text(text,18,y);
+    doc.text(String(line.qty),122,y);
+    doc.text(eur(line.price),140,y);
+    doc.text(eur(line.total),171,y);
+
+    doc.setDrawColor(235,232,220);
+    doc.line(15,y+rowHeight-2,195,y+rowHeight-2);
+
+    y += rowHeight;
+  });
 
   y += 8;
 
-  quote.forEach(line=>{
-
-    if(y > 260){
-      doc.addPage();
-      y = 20;
-    }
-
-    doc.text(
-      doc.splitTextToSize(line.nombre,90),
-      15,
-      y
-    );
-
-    doc.text(String(line.qty),125,y);
-    doc.text(line.price.toFixed(2)+" €",145,y);
-    doc.text(line.total.toFixed(2)+" €",175,y);
-
-    y += 10;
-  });
-
-  y += 10;
-
   doc.setFillColor(79,89,76);
-  doc.rect(120,y,70,12,"F");
-
+  doc.roundedRect(118,y,77,14,3,3,"F");
   doc.setTextColor(255,255,255);
-  doc.setFontSize(12);
-  doc.text(`TOTAL ${total}`,125,y+8);
+  doc.setFontSize(13);
+  doc.text(`TOTAL ${total}`,125,y+9);
 
-  y += 25;
+  y += 28;
 
-  doc.setTextColor(0,0,0);
-
+  doc.setTextColor(37,39,34);
   doc.setFontSize(12);
   doc.text("Observaciones",15,y);
 
@@ -1191,14 +1257,17 @@ async function generateCorporatePdf(){
 
   const observaciones = [
     "Consultar siempre la fecha con el laboratorio antes de citar al paciente.",
-    "En casos estéticos enviar fotografías clínicas y registros completos.",
+    "En casos estéticos enviar fotografías clínicas, color VITA y registros completos.",
     "En implantes indicar marca, plataforma y referencia exacta de scanbody.",
+    "Unidad: scanbody antirrotatorio. Puentes: scanbody rotatorio.",
     "Las interfases/TiBases no están incluidas salvo indicación expresa."
   ];
 
+  doc.setFontSize(8.5);
   observaciones.forEach(txt=>{
-    doc.text("• " + txt,18,y);
-    y += 6;
+    const lines = doc.splitTextToSize("• " + txt,170);
+    doc.text(lines,18,y);
+    y += lines.length * 5;
   });
 
   doc.save(`${presupuestoId}.pdf`);
