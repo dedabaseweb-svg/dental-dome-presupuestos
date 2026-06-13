@@ -163,6 +163,11 @@ let editingLineId = null;
 
 const eur = n => Number(n || 0).toLocaleString("es-ES",{style:"currency",currency:"EUR"});
 const $ = id => document.getElementById(id);
+function quoteTotal(){
+  return quote.reduce((sum,line)=>{
+    return sum + (Number(line.qty || 0) * Number(line.price || 0));
+  },0);
+}
 
 if($("date")){
   $("date").textContent = new Date().toLocaleDateString("es-ES");
@@ -659,7 +664,11 @@ function updateQuote(){
     `;
   }).join("") || `<tr><td colspan="5">Sin conceptos todavía.</td></tr>`;
 
-  $("total").textContent = eur(quote.reduce((s,l)=>s+l.total,0));
+  quote.forEach(l=>{
+  l.total = Number(l.qty || 0) * Number(l.price || 0);
+});
+
+$("total").textContent = eur(quoteTotal());
   renderWarnings();
   renderProtocols();
 }
