@@ -1011,7 +1011,9 @@ if($("clearQuote")){
 
 if($("recalculateQuote")) $("recalculateQuote").addEventListener("click",recalculateQuote);
 if($("resetForm")) $("resetForm").addEventListener("click",renderForm);
-$("printPdf").addEventListener("click",generateCorporatePdf);
+if($("printPdf")){
+  $("printPdf").addEventListener("click", generateCorporatePdf);
+}
 
 if($("copyWhatsApp")){
   $("copyWhatsApp").addEventListener("click",()=>{
