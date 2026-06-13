@@ -61,7 +61,6 @@ button{cursor:pointer;border:0}
   height:120px;
   object-fit:contain;
   display:block;
-  filter:none;
 }
 
 .brand p{
@@ -425,7 +424,6 @@ td.num{
   background:#fffef8;
   border-radius:8px;
   padding:6px 8px;
-  font:inherit;
 }
 
 .line-qty-input,
@@ -472,6 +470,7 @@ td.num{
 }
 
 .protocol-box h3{margin-bottom:10px}
+
 .protocol-box ul{
   padding-left:18px;
   margin:8px 0;
@@ -484,8 +483,6 @@ td.num{
   background:#eeece2;
   border:1px solid #d8d4c8;
 }
-
-.protocol-block h3{margin-bottom:8px}
 
 .price-library{
   display:grid;
@@ -501,13 +498,21 @@ td.num{
   margin:0;
   padding-bottom:8px;
   border-bottom:1px solid #d8d4c8;
-  color:var(--ink);
 }
 
 .price-category-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:14px;
+}
+
+.price-card{
+  padding:14px;
+  border-radius:16px;
+  background:#fffef8;
+  border:1px solid #e0dccf;
+  display:grid;
+  gap:5px;
 }
 
 .wide{
@@ -548,6 +553,29 @@ td.num{
   flex-wrap:wrap;
 }
 
+.dental-cross-row{
+  display:grid;
+  grid-template-columns:repeat(7,48px) 28px repeat(7,48px);
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+
+.odontogram-divider{
+  width:1px;
+  height:58px;
+  background:#c8c5b8;
+  display:block;
+  margin:auto;
+}
+
+.odontogram-separator{
+  width:min(900px,100%);
+  height:1px;
+  border-top:2px dashed #c8c5b8;
+  margin:8px auto;
+}
+
 .tooth-btn{
   width:48px;
   height:48px;
@@ -580,6 +608,17 @@ td.num{
   color:var(--cream);
 }
 
+.tooth-btn.pontic{
+  background:#9ea694;
+  color:white;
+}
+
+.tooth-btn.absent{
+  background:#d8d4c8;
+  color:#777;
+  text-decoration:line-through;
+}
+
 .case-editor{
   margin-top:20px;
   padding:18px;
@@ -604,6 +643,12 @@ td.num{
 .case-summary-box li{
   margin-bottom:6px;
 }
+
+.print-logo{
+  display:none;
+}
+
+/* RESPONSIVE */
 
 @media(max-width:1100px){
   .app-shell{
@@ -653,6 +698,15 @@ td.num{
     flex-wrap:wrap;
   }
 
+  .dental-cross-row{
+    grid-template-columns:repeat(7,42px) 18px repeat(7,42px);
+    gap:6px;
+  }
+
+  .odontogram-divider{
+    height:48px;
+  }
+
   .tooth-btn{
     width:42px;
     height:42px;
@@ -661,103 +715,7 @@ td.num{
   }
 }
 
-@media print{
-  body{
-    background:#fff;
-    color:#000;
-  }
-
-  .sidebar,.form-panel,.topbar,.actions,.nav,.case-editor,.case-toolbar{display:none!important}
-
-  .app-shell,
-  .main,
-  .grid{
-    display:block;
-    padding:0;
-  }
-
-  .quote-panel{
-    position:static;
-    box-shadow:none;
-    border:0;
-  }
-
-  .panel{
-    box-shadow:none;
-    .dental-cross-row{
-  display:grid;
-  grid-template-columns:repeat(6,48px) 28px repeat(6,48px);
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-}
-
-.odontogram-divider{
-  width:1px;
-  height:58px;
-  background:#c8c5b8;
-  display:block;
-  margin:auto;
-}
-
-.odontogram-separator{
-  width:min(780px,100%);
-  height:1px;
-  border-top:2px dashed #c8c5b8;
-  margin:8px auto;
-}
-
-@media(max-width:720px){
-.dental-cross-row{
-    grid-template-columns:repeat(6,42px) 18px repeat(6,42px);
-    gap:6px;
-}
-
-.odontogram-divider{
-    height:48px;
-
-.print-logo{
-  display:none;
-}
-
-@media print{
- .dental-cross-row{
-  display:grid;
-  grid-template-columns:repeat(6,48px) 28px repeat(6,48px);
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-}
-
-.odontogram-divider{
-  width:1px;
-  height:58px;
-  background:#c8c5b8;
-  display:block;
-  margin:auto;
-}
-
-.odontogram-separator{
-  width:min(780px,100%);
-  height:1px;
-  border-top:2px dashed #c8c5b8;
-  margin:8px auto;
-}
-
-.print-logo{
-  display:none;
-}
-
-@media(max-width:720px){
-  .dental-cross-row{
-    grid-template-columns:repeat(6,42px) 18px repeat(6,42px);
-    gap:6px;
-  }
-
-  .odontogram-divider{
-    height:48px;
-  }
-}
+/* PRINT */
 
 @media print{
   body{
@@ -793,12 +751,6 @@ td.num{
     border:0;
   }
 
-  .print-logo{
-    display:block!important;
-    width:120px;
-    margin:0 0 18px 0;
-  }
-
   .quote-panel::before{
     content:"";
     display:block;
@@ -807,5 +759,24 @@ td.num{
     background:url("logo-dental-dome.png") no-repeat left center;
     background-size:contain;
     margin-bottom:18px;
+  }
+
+  .dental-cross-row{
+    display:grid;
+    grid-template-columns:repeat(7,34px) 18px repeat(7,34px);
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+  }
+
+  .tooth-btn{
+    width:34px;
+    height:34px;
+    border-radius:9px;
+    font-size:.72rem;
+  }
+
+  .odontogram-divider{
+    height:40px;
   }
 }
