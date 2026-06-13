@@ -113,6 +113,7 @@ button{cursor:pointer;border:0}
 .main{
   padding:34px;
   min-width:0;
+  overflow:hidden;
 }
 
 .topbar{
@@ -171,7 +172,7 @@ h1{
 
 .grid{
   display:grid;
-  grid-template-columns:minmax(0,1.1fr) minmax(420px,.9fr);
+  grid-template-columns:minmax(0,1fr) minmax(400px,.85fr);
   gap:22px;
   align-items:start;
 }
@@ -183,6 +184,7 @@ h1{
   box-shadow:var(--shadow);
   padding:24px;
   border:1px solid rgba(255,255,255,.35);
+  min-width:0;
 }
 
 .panel-head{
@@ -521,11 +523,24 @@ td.num{
 
 /* CASO CLÍNICO / ODONTOGRAMA */
 
+.section-title-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+
 .case-toolbar{
   display:flex;
   gap:10px;
   justify-content:flex-end;
   margin-bottom:18px;
+}
+
+.case-toolbar.inline{
+  margin-bottom:0;
+  flex-wrap:wrap;
 }
 
 .odontogram-wrap{
@@ -534,16 +549,24 @@ td.num{
   background:#fffef8;
   border:1px solid #e0dccf;
   margin-bottom:20px;
+  max-width:100%;
+  overflow:hidden;
+}
+
+.odontogram-wrap.compact{
+  padding:16px;
 }
 
 .odontogram-wrap h3{
-  margin-bottom:16px;
+  margin-bottom:0;
 }
 
 .odontogram{
   display:grid;
   gap:14px;
   margin:12px 0;
+  width:100%;
+  overflow:hidden;
 }
 
 .odontogram-row{
@@ -555,35 +578,39 @@ td.num{
 
 .dental-cross-row{
   display:grid;
-  grid-template-columns:repeat(7,48px) 28px repeat(7,48px);
+  grid-template-columns:repeat(7,36px) 14px repeat(7,36px);
   justify-content:center;
   align-items:center;
-  gap:10px;
+  gap:5px;
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
 }
 
 .odontogram-divider{
   width:1px;
-  height:58px;
+  height:46px;
   background:#c8c5b8;
   display:block;
   margin:auto;
 }
 
 .odontogram-separator{
-  width:min(900px,100%);
+  width:min(650px,100%);
   height:1px;
   border-top:2px dashed #c8c5b8;
-  margin:8px auto;
+  margin:6px auto;
 }
 
 .tooth-btn{
-  width:48px;
-  height:48px;
-  border-radius:14px;
+  width:36px;
+  height:36px;
+  border-radius:12px;
   background:#eeece2;
   border:1px solid #d7d4c8;
   color:var(--ink);
   font-weight:800;
+  font-size:.82rem;
   transition:.16s ease;
 }
 
@@ -620,11 +647,15 @@ td.num{
 }
 
 .case-editor{
-  margin-top:20px;
-  padding:18px;
+  margin-top:16px;
+  padding:16px;
   border-radius:18px;
   background:#eeece2;
   border:1px solid #d7d4c8;
+}
+
+.case-editor.compact{
+  margin-top:14px;
 }
 
 .case-editor h3{
@@ -632,7 +663,11 @@ td.num{
 }
 
 .case-summary-box{
-  margin-top:18px;
+  margin-top:14px;
+}
+
+.case-summary-box.compact{
+  padding:14px;
 }
 
 .case-summary-box ul{
@@ -649,6 +684,24 @@ td.num{
 }
 
 /* RESPONSIVE */
+
+@media(max-width:1300px){
+  .grid{
+    grid-template-columns:minmax(0,1fr) minmax(360px,.8fr);
+  }
+
+  .dental-cross-row{
+    grid-template-columns:repeat(7,32px) 12px repeat(7,32px);
+    gap:4px;
+  }
+
+  .tooth-btn{
+    width:32px;
+    height:32px;
+    border-radius:10px;
+    font-size:.76rem;
+  }
+}
 
 @media(max-width:1100px){
   .app-shell{
@@ -676,6 +729,18 @@ td.num{
     position:relative;
     top:auto;
   }
+
+  .dental-cross-row{
+    grid-template-columns:repeat(7,42px) 18px repeat(7,42px);
+    gap:6px;
+  }
+
+  .tooth-btn{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    font-size:.86rem;
+  }
 }
 
 @media(max-width:720px){
@@ -693,25 +758,29 @@ td.num{
     display:grid;
   }
 
+  .section-title-row{
+    display:grid;
+  }
+
   .case-toolbar{
     justify-content:flex-start;
     flex-wrap:wrap;
   }
 
   .dental-cross-row{
-    grid-template-columns:repeat(7,42px) 18px repeat(7,42px);
-    gap:6px;
+    grid-template-columns:repeat(7,30px) 10px repeat(7,30px);
+    gap:3px;
   }
 
   .odontogram-divider{
-    height:48px;
+    height:38px;
   }
 
   .tooth-btn{
-    width:42px;
-    height:42px;
-    border-radius:12px;
-    font-size:.86rem;
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    font-size:.68rem;
   }
 }
 
