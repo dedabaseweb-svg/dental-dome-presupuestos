@@ -1011,11 +1011,7 @@ if($("clearQuote")){
 
 if($("recalculateQuote")) $("recalculateQuote").addEventListener("click",recalculateQuote);
 if($("resetForm")) $("resetForm").addEventListener("click",renderForm);
-$("printPdf").addEventListener("click",()=>{
-  document.body.classList.add("printing-quote");
-  window.print();
-  setTimeout(()=>document.body.classList.remove("printing-quote"),500);
-});
+$("printPdf").addEventListener("click",generateCorporatePdf);
 
 if($("copyWhatsApp")){
   $("copyWhatsApp").addEventListener("click",()=>{
@@ -1040,7 +1036,171 @@ Las interfases/TiBases no están incluidas en el presupuesto del laboratorio sal
     navigator.clipboard.writeText(text).then(()=>alert("Resumen copiado para WhatsApp."));
   });
 }
+async function generateCorporatePdf(){
 
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF("p","mm","a4");
+
+  const total = $("total")?.textContent || "0 €";
+
+  const clinica = $("clinica")?.value || "-";
+  const doctor = $("doctor")?.value || "-";
+  const paciente = $("paciente")?.value || "-";
+
+  const presupuestoId = $("quoteNumber")?.textContent || "DD-2026-001";
+
+  const piezas = Object.values(clinicalCase)
+    .map(x=>x.tooth)
+    .join(", ") || "-";
+
+  const trabajos = [...new Set(
+    quote.map(x=>x.nombre.split("·")[0].trim())
+  )].join(", ");
+
+  /* PAGINA 1 */
+
+  doc.setFillColor(79,89,76);
+  doc.rect(0,0,210,22,"F");
+
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(18);
+  doc.text("DENTAL DOME L.a.b",15,14);
+
+  doc.setFontSize(10);
+  doc.text("Presupuesto protésico",150,14);
+
+  doc.setTextColor(0,0,0);
+
+  doc.setFontSize(14);
+  doc.text("Datos del caso",15,35);
+
+  doc.setFontSize(10);
+
+  doc.text(`Presupuesto: ${presupuestoId}`,15,45);
+  doc.text(`Fecha: ${new Date().toLocaleDateString("es-ES")}`,15,52);
+
+  doc.text(`Clínica: ${clinica}`,15,65);
+  doc.text(`Doctor/a: ${doctor}`,15,72);
+  doc.text(`Paciente: ${paciente}`,15,79);
+
+  doc.setFontSize(14);
+  doc.text("Resumen clínico",15,98);
+
+  doc.setFontSize(10);
+
+  doc.text(`Piezas restauradas: ${piezas}`,15,108);
+
+  const splitTrabajo = doc.splitTextToSize(
+    `Trabajo: ${trabajos}`,
+    170
+  );
+
+  doc.text(splitTrabajo,15,116);
+
+  doc.setDrawColor(180);
+  doc.roundedRect(15,130,180,50,3,3);
+
+  doc.setFontSize(11);
+  doc.text(
+    "Odontograma clínico (versión PDF corporativa pendiente de integración gráfica)",
+    20,
+    145
+  );
+
+  doc.setFontSize(9);
+  doc.text(
+    piezas || "Sin piezas seleccionadas",
+    20,
+    160
+  );
+
+  doc.setFontSize(9);
+  doc.text(
+    "Consultar siempre la fecha con el laboratorio antes de citar al paciente.",
+    15,
+    200
+  );
+
+  /* PAGINA 2 */
+
+  doc.addPage();
+
+  doc.setFillColor(79,89,76);
+  doc.rect(0,0,210,18,"F");
+
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(14);
+  doc.text("Detalle económico",15,12);
+
+  doc.setTextColor(0,0,0);
+
+  let y = 30;
+
+  doc.setFontSize(10);
+
+  doc.text("Concepto",15,y);
+  doc.text("Cant.",120,y);
+  doc.text("€/ud",145,y);
+  doc.text("Total",175,y);
+
+  y += 5;
+
+  doc.line(15,y,195,y);
+
+  y += 8;
+
+  quote.forEach(line=>{
+
+    if(y > 260){
+      doc.addPage();
+      y = 20;
+    }
+
+    doc.text(
+      doc.splitTextToSize(line.nombre,90),
+      15,
+      y
+    );
+
+    doc.text(String(line.qty),125,y);
+    doc.text(line.price.toFixed(2)+" €",145,y);
+    doc.text(line.total.toFixed(2)+" €",175,y);
+
+    y += 10;
+  });
+
+  y += 10;
+
+  doc.setFillColor(79,89,76);
+  doc.rect(120,y,70,12,"F");
+
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(12);
+  doc.text(`TOTAL ${total}`,125,y+8);
+
+  y += 25;
+
+  doc.setTextColor(0,0,0);
+
+  doc.setFontSize(12);
+  doc.text("Observaciones",15,y);
+
+  y += 8;
+
+  const observaciones = [
+    "Consultar siempre la fecha con el laboratorio antes de citar al paciente.",
+    "En casos estéticos enviar fotografías clínicas y registros completos.",
+    "En implantes indicar marca, plataforma y referencia exacta de scanbody.",
+    "Las interfases/TiBases no están incluidas salvo indicación expresa."
+  ];
+
+  observaciones.forEach(txt=>{
+    doc.text("• " + txt,18,y);
+    y += 6;
+  });
+
+  doc.save(`${presupuestoId}.pdf`);
+}
 document.addEventListener("DOMContentLoaded",()=>{
   renderForm();
   updateQuote();
