@@ -10,17 +10,12 @@
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
-        <img
-          src="logo-dental-dome.png"
-          alt="Dental Dome"
-          class="brand-logo"
-        />
+        <img src="logo-dental-dome.png" alt="Dental Dome" class="brand-logo" />
         <p>Clinical & Laboratory Workflow</p>
       </div>
 
       <nav class="nav">
-        <button class="nav-item active" data-view="presupuesto">Nuevo presupuesto / pedido</button>
-        <button class="nav-item" data-view="caso">Caso clínico</button>
+        <button class="nav-item active" data-view="presupuesto">Nuevo presupuesto / caso clínico</button>
         <button class="nav-item" data-view="protocolos">Protocolos</button>
         <button class="nav-item" data-view="tarifas">Lista de precios</button>
       </nav>
@@ -36,7 +31,7 @@
         <div>
           <span class="eyebrow">Dental Dome L.a.b</span>
           <h1>Asistente técnico de presupuestos</h1>
-          <p>Presupuesto + protocolo clínico según el tipo de trabajo.</p>
+          <p>Presupuesto + odontograma + protocolo clínico-laboratorio.</p>
         </div>
         <div class="date-card">
           <span>Fecha</span>
@@ -51,7 +46,7 @@
               <span class="step">01</span>
               <div>
                 <h2>Datos del caso</h2>
-                <p>Selecciona el flujo principal para activar reglas y protocolos.</p>
+                <p>Completa la información general y selecciona las piezas si procede.</p>
               </div>
             </div>
 
@@ -70,8 +65,59 @@
               </label>
             </div>
 
+            <div class="odontogram-wrap compact">
+              <div class="section-title-row">
+                <h3>Odontograma</h3>
+                <div class="case-toolbar inline">
+                  <button class="ghost small" id="clearCase">Limpiar caso</button>
+                  <button class="primary small" id="generateCaseQuote">Generar desde odontograma</button>
+                </div>
+              </div>
+
+              <div id="odontogram" class="odontogram"></div>
+
+              <div class="case-editor compact" id="caseEditor">
+                <h3>Pieza seleccionada: <span id="selectedTooth">—</span></h3>
+
+                <div class="subgrid">
+                  <label>Restauración
+                    <select id="toothRestoration">
+                      <option value="">Seleccionar</option>
+                      <option value="corona">Corona</option>
+                      <option value="carilla">Carilla</option>
+                      <option value="inlay_onlay">Inlay / Onlay / Table Top</option>
+                      <option value="implante">Implante</option>
+                      <option value="pontico">Póntico</option>
+                      <option value="ausente">Ausente</option>
+                    </select>
+                  </label>
+
+                  <label>Material
+                    <select id="toothMaterial">
+                      <option value="">Seleccionar</option>
+                      <option value="zr_mono_std_tallado">Zirconio monolítico Standard</option>
+                      <option value="zr_mono_personalizada">Zirconio monolítico personalizado</option>
+                      <option value="carilla_feldespatica">Carilla feldespática</option>
+                      <option value="carilla_disilicato_maquillada">Carilla e.max maquillada</option>
+                      <option value="carilla_disilicato_estratificada">Carilla e.max estratificada</option>
+                      <option value="inlay_onlay_tabletop_disilicato">Inlay / Onlay / Table Top disilicato</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="actions">
+                  <button class="primary" id="saveTooth">Guardar pieza</button>
+                </div>
+              </div>
+
+              <div class="protocol-box case-summary-box compact">
+                <h3>Resumen del caso</h3>
+                <div id="caseSummary">Sin piezas seleccionadas.</div>
+              </div>
+            </div>
+
             <div class="choice-block">
-              <h3>¿Qué desea presupuestar?</h3>
+              <h3>Añadir trabajo manualmente</h3>
               <div class="choice-grid">
                 <button class="work-card selected" data-flow="corona">Corona</button>
                 <button class="work-card" data-flow="puente">Puente</button>
@@ -139,72 +185,11 @@
             </div>
 
             <div class="actions stacked">
-              <button class="primary" id="printPdf">Generar PDF / imprimir</button>
+              <button class="primary" id="printPdf">Generar PDF</button>
               <button class="ghost" id="copyWhatsApp">Copiar resumen WhatsApp</button>
             </div>
           </aside>
         </div>
-      </section>
-
-      <section class="view" id="view-caso">
-        <section class="panel wide">
-          <div class="panel-head">
-            <span class="step">02</span>
-            <div>
-              <h2>Diseño del caso clínico</h2>
-              <p>Selecciona las piezas y asigna restauraciones. Los modelos se calculan una sola vez por caso.</p>
-            </div>
-          </div>
-
-          <div class="case-toolbar">
-            <button class="ghost small" id="clearCase">Limpiar caso</button>
-            <button class="primary small" id="generateCaseQuote">Generar presupuesto del caso</button>
-          </div>
-
-          <div class="odontogram-wrap">
-            <h3>Odontograma</h3>
-            <div id="odontogram" class="odontogram"></div>
-          </div>
-
-          <div class="case-editor" id="caseEditor">
-            <h3>Pieza seleccionada: <span id="selectedTooth">—</span></h3>
-
-            <div class="subgrid">
-              <label>Restauración
-                <select id="toothRestoration">
-                  <option value="">Seleccionar</option>
-                  <option value="corona">Corona</option>
-                  <option value="carilla">Carilla</option>
-                  <option value="inlay_onlay">Inlay / Onlay / Table Top</option>
-                  <option value="implante">Implante</option>
-                  <option value="pontico">Póntico</option>
-                  <option value="ausente">Ausente</option>
-                </select>
-              </label>
-
-              <label>Material
-                <select id="toothMaterial">
-                  <option value="">Seleccionar</option>
-                  <option value="zr_mono_std_tallado">Zirconio monolítico Standard</option>
-                  <option value="zr_mono_personalizada">Zirconio monolítico personalizado</option>
-                  <option value="carilla_feldespatica">Carilla feldespática</option>
-                  <option value="carilla_disilicato_maquillada">Carilla e.max maquillada</option>
-                  <option value="carilla_disilicato_estratificada">Carilla e.max estratificada</option>
-                  <option value="inlay_onlay_tabletop_disilicato">Inlay / Onlay / Table Top disilicato</option>
-                </select>
-              </label>
-            </div>
-
-            <div class="actions">
-              <button class="primary" id="saveTooth">Guardar pieza</button>
-            </div>
-          </div>
-
-          <div class="protocol-box case-summary-box">
-            <h3>Resumen del caso</h3>
-            <div id="caseSummary">Sin piezas seleccionadas.</div>
-          </div>
-        </section>
       </section>
 
       <section class="view" id="view-protocolos">
@@ -230,7 +215,7 @@
       <input type="number" id="manualPrice" min="0" step="0.01" placeholder="Introducir precio" />
     </label>
   </template>
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="script.js?v=4"></script>
