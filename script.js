@@ -778,9 +778,9 @@ function renderLibraries(){
 /* ODONTOGRAMA */
 
 const TEETH_ROWS = [
-  [16,15,14,13,12,11, "divider", 21,22,23,24,25,26],
+  [17,16,15,14,13,12,11, "divider", 21,22,23,24,25,26,27],
   ["separator"],
-  [46,45,44,43,42,41, "divider", 31,32,33,34,35,36]
+  [47,46,45,44,43,42,41, "divider", 31,32,33,34,35,36,37]
 ];
 
 let selectedTooth = null;
@@ -807,7 +807,9 @@ function renderOdontogram(){
             "tooth-btn",
             selectedTooth === t ? "selected" : "",
             item ? "has-work" : "",
-            item?.restoration === "implante" ? "implant" : ""
+           item?.restoration === "implante" ? "implant" : "",
+           item?.restoration === "pontico" ? "pontic" : "",
+           item?.restoration === "ausente" ? "absent" : ""
           ].join(" ");
 
           return `<button class="${classes}" onclick="selectTooth(${t})">${t}</button>`;
