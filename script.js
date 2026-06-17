@@ -839,10 +839,85 @@ function selectTooth(tooth){
 
   const item = clinicalCase[tooth];
 
-  if($("toothRestoration")) $("toothRestoration").value = item?.restoration || "";
-  if($("toothMaterial")) $("toothMaterial").value = item?.material || "";
+  if($("toothRestoration")){
+    $("toothRestoration").value = item?.restoration || "";
+  }
+
+  // ACTUALIZAR MATERIALES SEGÚN RESTAURACIÓN
+  updateToothMaterialOptions();
+
+  if($("toothMaterial")){
+    $("toothMaterial").value = item?.material || "";
+  }
 
   renderOdontogram();
+}
+
+function getMaterialsForRestoration(restoration){
+  const materialMap = {
+    corona: [
+      "zr_mono_std_tallado",
+      "zr_mono_personalizada",
+      "zr_estratificada_tallado_ant",
+      "zr_estratificada_tallado_post",
+      "disilicato_mono_std",
+      "disilicato_mono_personalizada",
+      "disilicato_estrat_ant",
+      "disilicato_estrat_post",
+      "metal_ceramica_tallado_ant_std",
+      "metal_ceramica_tallado_post_std"
+    ],
+    carilla: [
+      "carilla_feldespatica",
+      "carilla_disilicato_maquillada",
+      "carilla_disilicato_estratificada",
+      "carilla_ips_empress"
+    ],
+    inlay_onlay: [
+      "inlay_onlay_tabletop_disilicato",
+      "onlay_composite_fresado"
+    ],
+    implante: [
+      "zr_mono_std_implante",
+      "zr_estratificada_ant_implante",
+      "zr_estratificada_post_implante",
+      "metal_ceramica_implante_ant",
+      "metal_ceramica_implante_post"
+    ],
+    pontico: [
+      "pmma_multicapa_tallado",
+      "zr_mono_std_tallado",
+      "zr_mono_personalizada",
+      "metal_ceramica_tallado_ant_std",
+      "metal_ceramica_tallado_post_std"
+    ],
+    ausente: []
+  };
+
+  return materialMap[restoration] || [];
+}
+
+function updateToothMaterialOptions(){
+  const restoration = $("toothRestoration")?.value || "";
+  const materialSelect = $("toothMaterial");
+
+  if(!materialSelect) return;
+
+  const ids = getMaterialsForRestoration(restoration);
+
+  if(!restoration || ids.length === 0){
+    materialSelect.innerHTML = `<option value="">Seleccionar</option>`;
+    return;
+  }
+
+  materialSelect.innerHTML = `
+    <option value="">Seleccionar</option>
+    ${ids.map(id=>{
+      const p = findProduct(id);
+      if(!p) return "";
+      return `<option value="${p.id}">${p.nombre}</option>`;
+    }).join("")}
+  `;
 }
 
 function saveSelectedTooth(){
@@ -1273,12 +1348,30 @@ async function generateCorporatePdf(){
   doc.save(`${presupuestoId}.pdf`);
 }
 document.addEventListener("DOMContentLoaded",()=>{
+
   renderForm();
   updateQuote();
   renderLibraries();
   renderOdontogram();
 
-  if($("saveTooth")) $("saveTooth").addEventListener("click", saveSelectedTooth);
-  if($("clearCase")) $("clearCase").addEventListener("click", clearClinicalCase);
-  if($("generateCaseQuote")) $("generateCaseQuote").addEventListener("click", generateQuoteFromCase);
+  if($("saveTooth")){
+    $("saveTooth").addEventListener("click", saveSelectedTooth);
+  }
+
+  if($("clearCase")){
+    $("clearCase").addEventListener("click", clearClinicalCase);
+  }
+
+  if($("generateCaseQuote")){
+    $("generateCaseQuote").addEventListener("click", generateQuoteFromCase);
+  }
+
+  // FILTRAR MATERIALES SEGÚN RESTAURACIÓN
+  if($("toothRestoration")){
+    $("toothRestoration").addEventListener(
+      "change",
+      updateToothMaterialOptions
+    );
+  }
+
 });
