@@ -920,6 +920,12 @@ function updateToothMaterialOptions(){
   `;
 }
 
+document.addEventListener("change", function(e){
+  if(e.target && e.target.id === "toothRestoration"){
+    updateToothMaterialOptions();
+  }
+});
+
 function saveSelectedTooth(){
   if(!selectedTooth){
     alert("Selecciona una pieza primero.");
