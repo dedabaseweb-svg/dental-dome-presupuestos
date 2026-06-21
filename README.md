@@ -1,66 +1,51 @@
 # Dental Dome L.a.b.
 ## Asistente técnico de presupuestos y protocolos clínico-laboratorio
 
-Versión Beta 1.0  
-Junio 2026
+![Versión](https://img.shields.io/badge/version-Beta%201.0-55604d)
+![Estado](https://img.shields.io/badge/status-Operativa-success)
+![Licencia](https://img.shields.io/badge/license-Privado-darkgreen)
 
 ---
 
 # Descripción
 
-Aplicación web desarrollada para facilitar la comunicación clínica-laboratorio, la elaboración de presupuestos protésicos y la generación de protocolos de trabajo estandarizados.
+**Dental Dome L.a.b.** es una aplicación web desarrollada para mejorar la comunicación entre clínica y laboratorio, facilitando la elaboración de presupuestos protésicos, la planificación clínica y la generación de protocolos de trabajo.
 
-Su objetivo es reducir errores de comunicación, agilizar la planificación de casos y mejorar la coordinación entre clínica y laboratorio.
+Está diseñada específicamente para odontólogos colaboradores del laboratorio Dental Dome.
 
 ---
 
-# Funcionalidades principales
+# Características principales
 
-## Presupuestos
+## Nuevo presupuesto
 
-Permite crear presupuestos protésicos de forma rápida mediante selección guiada de tratamientos.
+Permite elaborar presupuestos completos mediante un flujo guiado.
 
 Incluye:
 
-- Coronas
-- Puentes
-- Rehabilitaciones completas
-- Prótesis adhesivas
-- Provisionales
-- Mock-ups
-- Férulas
-- Guías quirúrgicas
-- Auxiliares y modelos
-
-### Datos del caso
-
-- Clínica
-- Doctor/a
-- Paciente / referencia
+- Datos de clínica
+- Doctor responsable
+- Paciente
 - Fecha prevista
-
-### Gestión económica
-
-- Añadir líneas
-- Editar líneas
-- Eliminar líneas
+- Presupuesto automático
+- Edición de líneas
+- Eliminación de conceptos
 - Recalcular presupuesto
-- Vaciar presupuesto
 - Total automático
 
 ---
 
 # Odontograma integrado
 
-El odontograma está completamente integrado en el flujo de presupuesto.
+La aplicación incorpora un odontograma totalmente interactivo.
 
 Permite:
 
-- Selección de piezas
-- Restauraciones por pieza
-- Definición de materiales
-- Resumen automático del caso
-- Generación de presupuesto desde odontograma
+- Seleccionar piezas dentarias
+- Definir restauración
+- Elegir únicamente los materiales compatibles
+- Generar automáticamente el presupuesto
+- Visualizar el resumen del caso
 
 ## Restauraciones disponibles
 
@@ -71,26 +56,66 @@ Permite:
 - Póntico
 - Ausente
 
-## Materiales disponibles
+---
+
+## Materiales inteligentes
+
+El selector de materiales se adapta automáticamente a la restauración elegida.
+
+### Corona
 
 - Zirconio monolítico Standard
 - Zirconio monolítico personalizado
-- Carilla feldespática
-- Carilla e.max maquillada
-- Carilla e.max estratificada
-- Inlay / Onlay / Table Top en disilicato
+- Zirconio estratificado anterior
+- Zirconio estratificado posterior
+- Disilicato maquillado
+- Disilicato estratificado
+- Metal-cerámica
+
+### Carilla
+
+- Feldespática
+- e.max maquillada
+- e.max estratificada
+- IPS Empress
+
+### Inlay / Onlay
+
+- Disilicato
+
+### Implante
+
+- Zirconio sobre implante
+- Metal-cerámica sobre implante
+
+### Póntico
+
+Materiales compatibles según tipo de rehabilitación.
+
+---
+
+# Generación automática
+
+Desde el odontograma puede generarse automáticamente el presupuesto.
+
+La aplicación calcula:
+
+- Restauraciones
+- Modelo de trabajo
+- Modelo antagonista
+- Total económico
+
+evitando duplicidades.
 
 ---
 
 # Protocolos integrados
 
-La aplicación incorpora protocolos resumidos para consulta rápida.
+El software incorpora protocolos resumidos de laboratorio.
 
-## Disponibles actualmente
+Actualmente incluye:
 
-### Implantes metal-cerámica
-
-Incluye:
+## Implantes metal-cerámica
 
 - Primera visita
 - Pasividad
@@ -100,38 +125,45 @@ Incluye:
 - Terminación
 - Colocación
 
-### BOPT
+---
 
-Basado en los principios clínicos del protocolo BOPT.
+## BOPT
 
-### Zirconio Katana
-
-Basado en documentación oficial Kuraray Noritake.
-
-### Cerabien MiLai
-
-Basado en guía técnica oficial.
+Resumen del protocolo clínico basado en la documentación oficial.
 
 ---
 
-# Avisos automáticos
+## Sistema Katana Zirconia
 
-La aplicación genera recordatorios según el tipo de caso.
+Basado en Kuraray Noritake.
+
+---
+
+## Cerabien MiLai
+
+Guía resumida de estratificación.
+
+---
+
+# Avisos inteligentes
+
+Según el tipo de caso, la aplicación muestra automáticamente avisos clínicos.
 
 ## Casos estéticos
 
 Solicita:
 
-- Fotografías clínicas de calidad
-- Modelos o escaneado pretratamiento
+- Fotografías clínicas
+- Modelos pretratamiento
+- Escaneado intraoral
 - Color guía VITA
 - Información clínica completa
 
 ---
 
-## Casos implantológicos digitales
+## Casos implantológicos
 
-Solicita:
+Solicita automáticamente:
 
 ### Unidad
 
@@ -147,31 +179,34 @@ Solicita:
 
 ---
 
-## Agenda del laboratorio
+## Agenda
 
-Recordatorio automático:
+Siempre recuerda:
 
-> Consultar siempre la fecha con el laboratorio antes de citar al paciente.
+> Consultar la fecha con el laboratorio antes de citar al paciente.
 
 ---
 
 # PDF corporativo
 
-Generación automática de PDF con:
+La aplicación genera un PDF profesional con:
 
-- Identidad Dental Dome
-- Logotipo corporativo
-- Datos del caso
+- Logotipo Dental Dome
+- Número de presupuesto
+- Fecha
+- Datos de clínica
+- Doctor
+- Paciente
 - Tabla económica
-- Total calculado
+- Total
 - Observaciones automáticas
-- Odontograma incluido
+- Identidad corporativa
 
 ---
 
-# Lista de precios
+# Lista de precios integrada
 
-Tarifa organizada por categorías:
+Tarifa organizada por categorías.
 
 ## Zirconio sobre tallado
 
@@ -182,6 +217,8 @@ Tarifa organizada por categorías:
 - Corona metal-cerámica anterior
 - Corona metal-cerámica posterior
 
+---
+
 ## Zirconio sobre implante
 
 - Corona monolítica Standard
@@ -190,6 +227,8 @@ Tarifa organizada por categorías:
 - Corona metal-cerámica anterior
 - Corona metal-cerámica posterior
 
+---
+
 ## Disilicato de litio
 
 - Corona maquillada Standard
@@ -197,15 +236,39 @@ Tarifa organizada por categorías:
 - Corona estratificada anterior
 - Corona estratificada posterior
 
+---
+
 ## Adhesiva
 
 - Carilla feldespática
 - Carilla e.max maquillada
 - Carilla e.max estratificada
-- Carilla IPS Empress
+- IPS Empress
 - Inlay / Onlay / Table Top
 - Maryland e.max
 - Maryland metal-cerámica
+
+---
+
+# Diseño
+
+La interfaz sigue la identidad corporativa de Dental Dome.
+
+Colores:
+
+```css
+--olive-dark:#4f594c;
+--olive:#7a8372;
+--paper:#f7f5ec;
+--ink:#252722;
+```
+
+Aspecto:
+
+- Responsive
+- Optimizado para escritorio
+- Compatible con tablet
+- Preparado para impresión
 
 ---
 
@@ -213,47 +276,62 @@ Tarifa organizada por categorías:
 
 - HTML5
 - CSS3
-- JavaScript Vanilla
+- JavaScript (Vanilla)
 - jsPDF
 - html2canvas
 
 ---
 
+# Próximas versiones
+
+## Beta 1.1
+
+- Mejoras del PDF
+- Mini odontograma dentro del PDF
+- Observaciones inteligentes ampliadas
+
+---
+
+## Versión 2.0
+
+- Base de datos online
+- Inicio de sesión
+- Historial de presupuestos
+- Gestión de pacientes
+- Gestión de clínicas
+- Exportación Excel
+- Estadísticas
+- Sincronización Cloud
+
+---
+
 # Estado del proyecto
 
-Versión Beta 1.0
+**Versión Beta 1.0**
 
-Funcional para uso clínico real.
-
-Pendiente de futuras mejoras:
-
-- Historial de presupuestos
-- Base de datos online
-- Gestión de usuarios
-- Portal para clínicas
-- Envío automático de casos
-- Integración con fotografía clínica
-- Exportación avanzada PDF
+Actualmente utilizada para pruebas reales con clínicas colaboradoras de Dental Dome L.a.b.
 
 ---
 
-# Importante
+# Aviso
 
-Los presupuestos generados tienen carácter orientativo y están sujetos a validación técnica por parte de Dental Dome L.a.b.
+Los presupuestos generados son orientativos y deberán ser revisados técnicamente por el laboratorio.
 
-La fecha de entrega deberá ser siempre confirmada previamente con el laboratorio.
-
----
-
-# Contacto
-
-Dental Dome L.a.b.
-
-Web:
-https://www.dentaldome.es
-
-Instagram:
-https://www.instagram.com/javiercuetomateos
+La fecha de entrega deberá ser confirmada previamente con Dental Dome L.a.b.
 
 ---
+
+# Autor
+
+**Dental Dome L.a.b.**
+
 Clinical & Laboratory Workflow
+
+🌐 https://www.dentaldome.es
+
+📷 https://www.instagram.com/javiercuetomateos
+
+---
+
+© 2026 Dental Dome L.a.b.
+Todos los derechos reservados.
